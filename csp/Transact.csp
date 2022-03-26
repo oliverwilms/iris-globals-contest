@@ -1,0 +1,26 @@
+<html>
+<head>
+<script language="Cache" runat="Server">
+Set tHeader = "iris-globals-contest"
+</script>
+<title>#(tHeader)#</title>
+</head>
+
+<body>
+<h1>#(tHeader)#</h1>
+<table border=1>
+<script language="Cache" runat="Server">
+Set tClassname = "dc.iris.transact"
+Set pWhere = ""
+//If $Data(objAccount),$IsObject(objAccount) {
+//	Do ##class(Riches.Util).DebugTEST("Ledger.csp objAccount = "_objAccount)
+
+//	Set pWhere = "Account = "_objAccount.%Id()
+	Set pTrClick = "javascript:tableClickHandler('#');"
+	Set pMaxRows = -1
+	Set tSC = $CLASSMETHOD(tClassname,"OutputTableData",pWhere,pTrClick,pMaxRows)
+//}
+Write "</table>",!
+</script>
+</body>
+</html>
