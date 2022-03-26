@@ -25,6 +25,55 @@ Property SubCategory As %String;
 
 Property TranDate As %String;
 
+ClassMethod OutputTableData(
+	pWhere As %String = "",
+	pTrClick As %String = "window.location='Transact.csp?iAccount=#';",
+	pMaxRows = -1) As %Status
+{
+	Set tDebug = 0
+	Do:tDebug ##class(util).DebugTEST("Riches.Transact - OutputTableData")
+	Do:tDebug ##class(util).DebugTEST("pWhere = "_pWhere)
+	Set tQuote = """"
+	Set tSC = $$$OK
+	Set tTable = "dc_iris.transact"
+	Set tWHERE = ""
+	If (pWhere '= "") Set tWHERE = " WHERE "_pWhere
+	Set tQuery = "SELECT * FROM "_tTable_tWHERE
+	Do:tDebug ##class(util).DebugTEST("tQuery = "_tQuery)
+	Set tStatement = ##class(%SQL.Statement).%New()
+	Set tSC = tStatement.%Prepare(.tQuery)  // Create a cached query
+	If $$$ISERR(tSC) Do ##class(util).DebugStatus(tSC)
+	If $$$ISERR(tSC) { Quit tSC }
+	#dim tResult As %SQL.StatementResult
+	Set tResult = tStatement.%Execute()
+	IF (tResult.%SQLCODE=0) { /*WRITE !,"Created a query",!*/ }
+	ELSEIF (tResult.%SQLCODE=-361) { /*WRITE !,"Query exists: ",tResult.%Message*/ }
+	ELSE { /*WRITE !,"CREATE QUERY error: ",tResult.%SQLCODE," ",tResult.%Message*/ QUIT tSC}
+	Write !,"<tr><th>Date</th><th>Time</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
+ 	While tResult.%Next() {
+	 	//Set tValue = ##class(Util).EncodeLogicalDisplay(tResult.ID,tResult.Nickname)
+		Set tValue = tResult.ID
+		Write !,"<tr onclick=",tQuote,$Replace(pTrClick,"#",tValue),tQuote,">"
+		//Write !,"<td>",$ZDATE(tResult.TranDate),"</td>"
+		Set tDisplay = tResult.TranDate
+		Write !,"<td>",tDisplay,"</td>"
+		//Write !,"<td>",$ZTIME(tResult.TranTime),"</td>"
+		Write !,"<td>",tResult.CheckNumber,"</td>"
+		//Set tQuery = "SELECT Nickname FROM Riches.Merchant WHERE ID = "_tResult.Merchant
+		//Set tSC = ##class(Util).ExecuteQueryOneValue(tQuery,.tDisplay)
+		Set tDisplay = tResult.Merchant
+		Write !,"<td>",tDisplay,"</td>"
+		//Set tQuery = "SELECT Nickname FROM Riches.Category WHERE ID = "_tResult.Category
+		//Set tSC = ##class(Util).ExecuteQueryOneValue(tQuery,.tDisplay)
+		Set tDisplay = tResult.Category
+		Write !,"<td>",tDisplay,"</td>"
+		Write !,"<td>",tResult.Debit,"</td>"
+		Write !,"<td>",tResult.Credit,"</td>"
+		Write !,"</tr>"
+	}
+	Quit tSC
+}
+
 Storage NewStorage1
 {
 <ExtentSize>2048</ExtentSize>
