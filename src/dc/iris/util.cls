@@ -1,4 +1,4 @@
-Class dc.iris.util
+Class U
 {
 
 ClassMethod DebugMerge(strMessage As %String = "", ByRef pArray) As %Status
@@ -106,7 +106,7 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 	Set cMerchant = 0
 	Set cStatus = 0
 	Set cSubategory = 0
-Try {
+	Try {
 		Use pCSV
 		Set tColumns = "Account,TranDate,Merchant,Category,AmountDebit,AmountCredit"
 		Set tQuery = "Insert into Riches.Transact ("_tColumns_") values "
