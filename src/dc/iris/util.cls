@@ -1,7 +1,9 @@
 Class dc.iris.util
 {
 
-ClassMethod DebugMerge(strMessage As %String = "", ByRef pArray) As %Status
+ClassMethod DebugMerge(
+	strMessage As %String = "",
+	ByRef pArray) As %Status
 {
 	Merge ^TESTunit($I(^TESTunit)) = pArray
 	Set tValue = ""
@@ -36,7 +38,9 @@ ClassMethod GetStatusText(pStatus As %Status) As %String
 	Quit tReturn
 }
 
-ClassMethod ExecuteQueryOneValue(pQuery As %String, ByRef pResult As %String) As %Status
+ClassMethod ExecuteQueryOneValue(
+	pQuery As %String,
+	ByRef pResult As %String) As %Status
 {
 	Do ..DebugTEST("Riches.Util - ExecuteQueryOneValue")
 	Do ..DebugTEST("pQuery = "_pQuery)
@@ -67,18 +71,12 @@ ClassMethod GetDateValue(pValue As %String) As %Date
 	Quit $Get(tDate,0)
 }
 
-ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Status
+ClassMethod ImportCSV(
+	pCSV As %String = "",
+	pMaxRows As %Integer = 9999) As %Status
 {
 	If (pCSV = "") {
-		Set tExport = "/usr/irissys/lib/irisapp/export.CSV"
-		If ##class(%File).Exists(tExport) Set pCSV = tExport
-	}
-	If (pCSV = "") {
-		Set tExport = "/opt/irisapp/data/export.csv"
-		If ##class(%File).Exists(tExport) Set pCSV = tExport
-	}
-	If (pCSV = "") {
-		Set tExport = "/opt/irisapp/export.CSV"
+		Set tExport = "/opt/irisbuild/data/finance-transactions-08-Jan-2022_08-25.csv"
 		If ##class(%File).Exists(tExport) Set pCSV = tExport
 	}
 	If (pCSV = "") {
@@ -119,6 +117,8 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 					Write msg,!
 					Quit  // For loop
 				}
+				Kill ^GLOBAL
+				Set tId	 = 0
 				Set headers = line
 				For ii = 1:1:$Length(headers,comma) {
 					Set title = $Piece(headers,comma,ii)
@@ -133,10 +133,18 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 					If (title = "Status") Set cStatus = ii
 					If (title = "Subategory") Set cSubategory = ii
 					If '(title [ "SubCategory"),(title [ "Category") Set cCategory = ii
+					Set ^GLOBAL(tId,ii) = title
 				}
 				Continue
 			}
 			If (rows > pMaxRows) { Quit }
+			Set tId = $Increment(^GLOBAL)
+			For ii = 1:1:$Length(line,comma) {
+				Set tData = $Piece(line,comma,ii)
+				Set tSC = ..UnQuote(tData,.tData)
+				Set ^GLOBAL(tId,ii) = tData
+			}
+			Continue
 			Set tValues = "("
 			If cAccount Set tValues = tValues_$Piece(line,comma,cAccount)
 			Set tValues = tValues_comma
@@ -156,10 +164,15 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 	} Catch {
 	}
 	Close pCSV
+	Write rows, " rows",!
 	Quit $$$OK
 }
 
-ClassMethod UnQuote(pQuote As %String = "", Output pUnQuote As %String, pOutQuote As %String = "", pVerbose As %Integer = 0) As %Status
+ClassMethod UnQuote(
+	pQuote As %String = "",
+	Output pUnQuote As %String,
+	pOutQuote As %String = "",
+	pVerbose As %Integer = 0) As %Status
 {
 	Set boolContinue = 1
 	While boolContinue {
@@ -182,7 +195,7 @@ ClassMethod UnQuote(pQuote As %String = "", Output pUnQuote As %String, pOutQuot
 		//Do ..DebugTEST("pEscape = "_pEscape)
 	}
 	Set pUnQuote = pOutQuote_pEscape_pOutQuote
-	If (pUnQuote = "") Set pUnQuote = "''"
+	//If (pUnQuote = "") Set pUnQuote = "''"
 	Do:pVerbose ..DebugTEST("pUnQuote = "_pUnQuote)
 	Quit $$$OK
 }
