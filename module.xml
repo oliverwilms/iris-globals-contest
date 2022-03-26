@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="iris-python-template.ZPM">
+  <Document name="iris-globals-contest.ZPM">
     <Module>
-      <Name>iris-python-template</Name>
-      <Version>1.0.2</Version>
+      <Name>iris-globals-contest</Name>
+      <Version>0.0.1</Version>
       <Description>The simplest template to run embedded python</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
