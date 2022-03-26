@@ -1,4 +1,4 @@
-Class U
+Class dc.iris.util
 {
 
 ClassMethod DebugMerge(strMessage As %String = "", ByRef pArray) As %Status
