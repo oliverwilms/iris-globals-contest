@@ -50,14 +50,22 @@ ClassMethod Count() As %Status
 		If (tCategory = "") Set tCategory = 0
 		Set tDebit = tResult.Debit
 		Set tCredit = tResult.Credit
+		If (tAccount '= ""),$Data(^TRANSLATE("Credit-Debit",tAccount)) {
+			Set tCreditDebit = $Get(^TRANSLATE("Credit-Debit",tAccount))
+			If (tCreditDebit = "Credit is Debit") {
+				Set tData = tCredit
+				Set tCredit = tDebit
+				Set tDebit = tData
+			}
+		}
 		//Set tData = $Get(^COUNT(tCategory,tYear,tMonth))
 		Set tData = $Get(^COUNT(tYear,tMonth,tCategory))
 		Set tCount = $Piece(tData,"^",1)
 		Set tSumCredit = $Piece(tData,"^",2)
 		Set tSumDebit = $Piece(tData,"^",3)
 		Set tCount = tCount + 1
-		Set tSumCredit = tSumCredit + tResult.Credit
-		Set tSumDebit = tSumDebit + tResult.Debit
+		Set tSumCredit = tSumCredit + tCredit
+		Set tSumDebit = tSumDebit + tDebit
 		//Set ^COUNT(tCategory,tYear,tMonth) = tCount_"^"_tSumCredit_"^"_tSumDebit
 		Set ^COUNT(tYear,tMonth,tCategory) = tCount_"^"_tSumCredit_"^"_tSumDebit
 	}
