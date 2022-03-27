@@ -22,7 +22,7 @@ function goClickButton(id)
 <body>
 <h1>#(tHeader)#</h1>
 <label for="iFilter">Filter:</label>
-<input type="text" id="iFilter" size="50" value="#($Get(tColSel))#">
+<input type="text" id="iFilter" size="50" value="#($Get(iFilter))#">
 <script language="Cache" runat="Server">
 Set q = """"
 Set qClick = q_"goClickButton('PREVIEW')"_q
