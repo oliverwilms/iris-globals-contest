@@ -54,7 +54,9 @@ ClassMethod OutputTableData(
 	IF (tResult.%SQLCODE=0) { /*WRITE !,"Created a query",!*/ }
 	ELSEIF (tResult.%SQLCODE=-361) { /*WRITE !,"Query exists: ",tResult.%Message*/ }
 	ELSE { /*WRITE !,"CREATE QUERY error: ",tResult.%SQLCODE," ",tResult.%Message*/ QUIT tSC}
-	Write !,"<tr><th>Date</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
+	//Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
+ 	Do ..OutputTableHead()
+ 	Write !,"<tbody>"
  	While tResult.%Next() {
 	 	If (tFilter '= "") {
 		 	Set tData = tResult.Category
@@ -68,6 +70,7 @@ ClassMethod OutputTableData(
 		Set tDisplay = tResult.TranDate
 		Write !,"<td>",tDisplay,"</td>"
 		//Write !,"<td>",$ZTIME(tResult.TranTime),"</td>"
+		Write !,"<td>",tResult.Account,"</td>"
 		Write !,"<td>",tResult.CheckNumber,"</td>"
 		//Set tQuery = "SELECT Nickname FROM Riches.Merchant WHERE ID = "_tResult.Merchant
 		//Set tSC = ##class(Util).ExecuteQueryOneValue(tQuery,.tDisplay)
@@ -81,7 +84,25 @@ ClassMethod OutputTableData(
 		Write !,"<td>",tResult.Credit,"</td>"
 		Write !,"</tr>"
 	}
+	Write !,"</tbody>"
+ 	Do ..OutputTableFoot()
 	Quit tSC
+}
+
+ClassMethod OutputTableFoot() As %Status
+{
+	Write !,"<tfoot>"
+	Write !,"<tr><td>Sum</td></tr>"
+	Write !,"</tfoot>"
+	Quit $$$OK
+}
+
+ClassMethod OutputTableHead() As %Status
+{
+	Write !,"<thead>"
+	Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
+	Write !,"</thead>"
+	Quit $$$OK
 }
 
 Storage NewStorage1
