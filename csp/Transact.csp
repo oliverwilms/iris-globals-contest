@@ -33,6 +33,7 @@ Set qType = q_"button"_q
 Write "<button type=",qType," onclick=",qClick,">Reset</button>",!
 </script>
 <table border=1>
+<caption>Transaction Table</caption>
 <script language="Cache" runat="Server">
 Set tClassname = "dc.iris.transact"
 Set pWhere = ""
