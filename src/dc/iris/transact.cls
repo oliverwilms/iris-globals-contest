@@ -52,6 +52,24 @@ ClassMethod OutputTableData(
 		Do:tDebug ##class(util).DebugTEST("tFilter = "_tFilter)
 		Set pWhere = $Piece(pWhere," AND ",2,*)
 	}
+	If (pWhere [ "iStartDate") {
+		Set tBefore = $Piece(pWhere,"iStartDate",1)
+		Set tAfter = $Piece(pWhere,"iStartDate",2)
+		Set tValue = $Piece(tAfter,"'",2)
+		Set tData = ..GetTranDate(tValue)
+		Set tMore = $Piece(tAfter," AND ",2,*)
+		Set pWhere = tBefore_"zTranDate"_$Piece(tAfter,",",1)_tData
+		If (tMore '= "") Set pWhere = pWhere_" AND "_tMore
+	}
+	If (pWhere [ "iEndDate") {
+		Set tBefore = $Piece(pWhere,"iEndDate",1)
+		Set tAfter = $Piece(pWhere,"iEndDate",2)
+		Set tValue = $Piece(tAfter,"'",2)
+		Set tData = ..GetTranDate(tValue)
+		Set tMore = $Piece(tAfter," AND ",2,*)
+		Set pWhere = tBefore_"zTranDate"_$Piece(tAfter,",",1)_tData
+		If (tMore '= "") Set pWhere = pWhere_" AND "_tMore
+	}
 	Set tQuote = """"
 	Set tSC = $$$OK
 	Set tTable = "dc_iris.transact"
