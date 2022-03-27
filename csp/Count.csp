@@ -1,0 +1,79 @@
+<html>
+<head>
+<script language="Cache" runat="Server">
+Set tHeader = "iris-globals-contest"
+If ($Data(%request.Data("iEndDate",1))) {
+	Set iEndDate = %request.Data("iEndDate",1)
+}
+If ($Data(%request.Data("iFilter",1))) {
+	Set iFilter = %request.Data("iFilter",1)
+}
+If ($Data(%request.Data("iStartDate",1))) {
+	Set iStartDate = %request.Data("iStartDate",1)
+}
+</script>
+<script language="JavaScript">
+function goClickButton(id)
+{
+	var iEndDate = document.getElementById("iEndDate").value;
+	var iFilter = id + document.getElementById("iFilter").value;
+	var iStartDate = document.getElementById("iStartDate").value;
+	//document.location = "Transact.csp?debug=" + id + "&iFilter=" + iFilter; // + "&iAccount=" + iAccount;
+	document.location = "Count.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
+}
+</script>
+<title>#(tHeader)#</title>
+</head>
+
+<body>
+<h1>#(tHeader)#</h1>
+<script language="Cache" runat="Server">
+Set q = """"
+Set qClick = q_"goClickButton('PREV')"_q
+Set qType = q_"button"_q
+Write "<button type=",qType," onclick=",qClick,">Previous</button>",!
+</script>
+<label for="iStartDate">Start Date:</label>
+<input type="text" id="iStartDate" size="10" value="#($Get(iStartDate))#">
+<label for="iFilter">Filter:</label>
+<input type="text" id="iFilter" size="20" value="#($Get(iFilter))#">
+<label for="iEndDate">End Date:</label>
+<input type="text" id="iEndDate" size="10" value="#($Get(iEndDate))#">
+<script language="Cache" runat="Server">
+Set q = """"
+Set qClick = q_"goClickButton('NEXT')"_q
+Set qType = q_"button"_q
+Write "<button type=",qType," onclick=",qClick,">Next</button>",!
+</script>
+<table border=1>
+<caption>Transaction Table</caption>
+<script language="Cache" runat="Server">
+Set q = "'"
+Set tClassname = "dc.iris.count"
+Set pWhere = ""
+If ($Get(iFilter) '= "") {
+	Set pWhere = pWhere_" AND iFilter = "_iFilter
+}
+If ($Get(iStartDate) '= "") {
+	//Set pWhere = pWhere_" AND TranDate >= "_q_iStartDate_q
+	Set pWhere = pWhere_" AND iStartDate >= "_q_iStartDate_q
+}
+If ($Get(iEndDate) '= "") {
+	//Set pWhere = pWhere_" AND TranDate <= "_q_iEndDate_q
+	Set pWhere = pWhere_" AND iEndDate <= "_q_iEndDate_q
+}
+If (pWhere '= "") {
+	Set pWhere = $Extract(pWhere,6,*)
+}
+	Set pTrClick = "javascript:tableClickHandler('#');"
+	Set pMaxRows = -1
+	Set tReturn = $CLASSMETHOD(tClassname,"OutputTableData",pWhere,pTrClick,pMaxRows)
+
+Write "</table>",!
+</script>
+<script language="JavaScript">
+	var iFilter = '#(tReturn)#';
+	document.getElementById("iFilter").value = iFilter;
+</script>
+</body>
+</html>
