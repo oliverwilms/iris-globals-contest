@@ -35,8 +35,10 @@ ClassMethod OutputTableData(
 	Do:tDebug ##class(util).DebugTEST("pWhere = "_pWhere)
 	Set tFilter = ""
 	If (pWhere [ "iFilter") {
-		Set tFilter = $Piece(pWhere,"iFilter = ",2)
-		Set pWhere = ""
+		Set tFilter = $Piece(pWhere," AND ",1,1)
+		Set tFilter = $Piece(tFilter,"iFilter = ",2)
+		Do:tDebug ##class(util).DebugTEST("tFilter = "_tFilter)
+		Set pWhere = $Piece(pWhere," AND ",2,*)
 	}
 	Set tQuote = """"
 	Set tSC = $$$OK
