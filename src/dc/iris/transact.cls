@@ -30,9 +30,14 @@ ClassMethod OutputTableData(
 	pTrClick As %String = "window.location='Transact.csp?iAccount=#';",
 	pMaxRows = -1) As %Status
 {
-	Set tDebug = 0
+	Set tDebug = 1
 	Do:tDebug ##class(util).DebugTEST("Riches.Transact - OutputTableData")
 	Do:tDebug ##class(util).DebugTEST("pWhere = "_pWhere)
+	Set tFilter = ""
+	If (pWhere [ "iFilter") {
+		Set tFilter = $Piece(pWhere,"iFilter = ",2)
+		Set pWhere = ""
+	}
 	Set tQuote = """"
 	Set tSC = $$$OK
 	Set tTable = "dc_iris.transact"
@@ -51,6 +56,11 @@ ClassMethod OutputTableData(
 	ELSE { /*WRITE !,"CREATE QUERY error: ",tResult.%SQLCODE," ",tResult.%Message*/ QUIT tSC}
 	Write !,"<tr><th>Date</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
  	While tResult.%Next() {
+	 	If (tFilter '= "") {
+		 	Set tData = tResult.Category
+		 	Set tContinue = (tData '[ tFilter)
+		 	If tContinue { CONTINUE }
+	 	}
 	 	//Set tValue = ##class(Util).EncodeLogicalDisplay(tResult.ID,tResult.Nickname)
 		Set tValue = tResult.ID
 		Write !,"<tr onclick=",tQuote,$Replace(pTrClick,"#",tValue),tQuote,">"
