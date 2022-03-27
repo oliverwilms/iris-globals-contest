@@ -56,6 +56,7 @@ ClassMethod OutputTableData(
 	ELSE { /*WRITE !,"CREATE QUERY error: ",tResult.%SQLCODE," ",tResult.%Message*/ QUIT tSC}
 	//Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
  	Do ..OutputTableHead()
+ 	Set (tSumCredit, tSumDebit) = 0
  	Write !,"<tbody>"
  	While tResult.%Next() {
 	 	If (tFilter '= "") {
@@ -83,16 +84,26 @@ ClassMethod OutputTableData(
 		Write !,"<td>",tResult.Debit,"</td>"
 		Write !,"<td>",tResult.Credit,"</td>"
 		Write !,"</tr>"
+		Set tSumCredit = tSumCredit + tResult.Credit
+		Set tSumDebit = tSumDebit + tResult.Debit
 	}
 	Write !,"</tbody>"
- 	Do ..OutputTableFoot()
+ 	Do ..OutputTableFoot(5,tSumCredit,tSumDebit)
 	Quit tSC
 }
 
-ClassMethod OutputTableFoot() As %Status
+ClassMethod OutputTableFoot(
+	pColSpan As %String = "",
+	pCredit As %String = "",
+	pDebit As %String = "") As %Status
 {
+	Set q = """"
+	Set qColSpan = q_pColSpan_q
 	Write !,"<tfoot>"
-	Write !,"<tr><td>Sum</td></tr>"
+	Write !,"<tr><td colspan=",qColSpan,">Sum</td>"
+	Write !,"<td>",pDebit,"</td>"
+	Write !,"<td>",pCredit,"</td>"
+	Write !,"</tr>"
 	Write !,"</tfoot>"
 	Quit $$$OK
 }
