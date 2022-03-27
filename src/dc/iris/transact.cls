@@ -43,22 +43,24 @@ ClassMethod OutputTableData(
 	pMaxRows = -1) As %Status
 {
 	Set tDebug = 1
-	Do:tDebug ##class(util).DebugTEST("Riches.Transact - OutputTableData")
+	Do:tDebug ##class(util).DebugTEST("dc.iris.transact - OutputTableData")
 	Do:tDebug ##class(util).DebugTEST("pWhere = "_pWhere)
 	Set tFilter = ""
+	// iFilter = onat AND iStartDate >= '1/1/2021' AND iEndDate <= '1/31/2022'
 	If (pWhere [ "iFilter") {
 		Set tFilter = $Piece(pWhere," AND ",1,1)
 		Set tFilter = $Piece(tFilter,"iFilter = ",2)
 		Do:tDebug ##class(util).DebugTEST("tFilter = "_tFilter)
 		Set pWhere = $Piece(pWhere," AND ",2,*)
 	}
+	// iStartDate >= '1/1/2021' AND iEndDate <= '1/31/2022'
 	If (pWhere [ "iStartDate") {
 		Set tBefore = $Piece(pWhere,"iStartDate",1)
 		Set tAfter = $Piece(pWhere,"iStartDate",2)
 		Set tValue = $Piece(tAfter,"'",2)
 		Set tData = ..GetTranDate(tValue)
 		Set tMore = $Piece(tAfter," AND ",2,*)
-		Set pWhere = tBefore_"zTranDate"_$Piece(tAfter,",",1)_tData
+		Set pWhere = tBefore_"zTranDate"_$Piece(tAfter,"'",1)_tData
 		If (tMore '= "") Set pWhere = pWhere_" AND "_tMore
 	}
 	If (pWhere [ "iEndDate") {
@@ -67,7 +69,7 @@ ClassMethod OutputTableData(
 		Set tValue = $Piece(tAfter,"'",2)
 		Set tData = ..GetTranDate(tValue)
 		Set tMore = $Piece(tAfter," AND ",2,*)
-		Set pWhere = tBefore_"zTranDate"_$Piece(tAfter,",",1)_tData
+		Set pWhere = tBefore_"zTranDate"_$Piece(tAfter,"'",1)_tData
 		If (tMore '= "") Set pWhere = pWhere_" AND "_tMore
 	}
 	Set tQuote = """"
