@@ -2,18 +2,24 @@
 <head>
 <script language="Cache" runat="Server">
 Set tHeader = "iris-globals-contest"
-If ($Data(%request.Data("iAccount",1))) {
-	Set iAccount = %request.Data("iAccount",1)
+If ($Data(%request.Data("iEndDate",1))) {
+	Set iEndDate = %request.Data("iEndDate",1)
 }
 If ($Data(%request.Data("iFilter",1))) {
 	Set iFilter = %request.Data("iFilter",1)
-}</script>
+}
+If ($Data(%request.Data("iStartDate",1))) {
+	Set iStartDate = %request.Data("iStartDate",1)
+}
+</script>
 <script language="JavaScript">
 function goClickButton(id)
 {
+	var iEndDate = document.getElementById("iEndDate").value;
 	var iFilter = document.getElementById("iFilter").value;
-	//var iAccount = document.getElementById("iAccount").value;
-	document.location = "Transact.csp?debug=" + id + "&iFilter=" + iFilter; // + "&iAccount=" + iAccount;
+	var iStartDate = document.getElementById("iStartDate").value;
+	//document.location = "Transact.csp?debug=" + id + "&iFilter=" + iFilter; // + "&iAccount=" + iAccount;
+	document.location = "Transact.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
 }
 </script>
 <title>#(tHeader)#</title>
@@ -21,8 +27,12 @@ function goClickButton(id)
 
 <body>
 <h1>#(tHeader)#</h1>
+<label for="iStartDate">Start Date:</label>
+<input type="text" id="iStartDate" size="10" value="#($Get(iStartDate))#">
 <label for="iFilter">Filter:</label>
-<input type="text" id="iFilter" size="50" value="#($Get(iFilter))#">
+<input type="text" id="iFilter" size="20" value="#($Get(iFilter))#">
+<label for="iEndDate">End Date:</label>
+<input type="text" id="iEndDate" size="10" value="#($Get(iEndDate))#">
 <script language="Cache" runat="Server">
 Set q = """"
 Set qClick = q_"goClickButton('PREVIEW')"_q
@@ -35,12 +45,20 @@ Write "<button type=",qType," onclick=",qClick,">Reset</button>",!
 <table border=1>
 <caption>Transaction Table</caption>
 <script language="Cache" runat="Server">
+Set q = "'"
 Set tClassname = "dc.iris.transact"
 Set pWhere = ""
-If $Data(iFilter) {
-//	Do ##class(Riches.Util).DebugTEST("Ledger.csp objAccount = "_objAccount)
-
-	Set pWhere = "iFilter = "_iFilter
+If ($Get(iFilter) '= "") {
+	Set pWhere = pWhere_" AND iFilter = "_iFilter
+}
+If ($Get(iStartDate) '= "") {
+	Set pWhere = pWhere_" AND TranDate >= "_q_iStartDate_q
+}
+If ($Get(iEndDate) '= "") {
+	Set pWhere = pWhere_" AND TranDate <= "_q_iEndDate_q
+}
+If (pWhere '= "") {
+	Set pWhere = $Extract(pWhere,6,*)
 }
 	Set pTrClick = "javascript:tableClickHandler('#');"
 	Set pMaxRows = -1
