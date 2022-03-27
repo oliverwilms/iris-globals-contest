@@ -26,7 +26,7 @@ function goClickButton(id)
 </head>
 
 <body>
-<h1>#(tHeader)#</h1>
+<h1 id="header1">#(tHeader)#</h1>
 <script language="Cache" runat="Server">
 Set q = """"
 Set qClick = q_"goClickButton('PREV')"_q
@@ -72,8 +72,14 @@ If (pWhere '= "") {
 Write "</table>",!
 </script>
 <script language="JavaScript">
+	var months = 'January,February,March,April,May,June,July,August,September,October,November,December';
+	var myArray = months.split(",");
 	var iFilter = '#(tReturn)#';
 	document.getElementById("iFilter").value = iFilter;
+	var iArray = iFilter.split("^");
+	var iMonth = iArray[2];
+	var iYear = iArray[1];
+	if (iMonth > 0) document.getElementById("header1").innerHTML = myArray[iMonth-1] + ' ' + iYear;
 </script>
 </body>
 </html>
