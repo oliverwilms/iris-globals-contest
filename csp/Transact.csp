@@ -2,24 +2,49 @@
 <head>
 <script language="Cache" runat="Server">
 Set tHeader = "iris-globals-contest"
+If ($Data(%request.Data("iAccount",1))) {
+	Set iAccount = %request.Data("iAccount",1)
+}
+If ($Data(%request.Data("iFilter",1))) {
+	Set iFilter = %request.Data("iFilter",1)
+}</script>
+<script language="JavaScript">
+function goClickButton(id)
+{
+	var iFilter = document.getElementById("iFilter").value;
+	//var iAccount = document.getElementById("iAccount").value;
+	document.location = "Transact.csp?debug=" + id + "&iFilter=" + iFilter; // + "&iAccount=" + iAccount;
+}
 </script>
 <title>#(tHeader)#</title>
 </head>
 
 <body>
 <h1>#(tHeader)#</h1>
+<label for="iFilter">Filter:</label>
+<input type="text" id="iFilter" size="50" value="#($Get(tColSel))#">
+<script language="Cache" runat="Server">
+Set q = """"
+Set qClick = q_"goClickButton('PREVIEW')"_q
+Set qType = q_"button"_q
+Write "<button type=",qType," onclick=",qClick,">Preview</button>",!
+Set qClick = q_"goClickButton('RESET')"_q
+Set qType = q_"button"_q
+Write "<button type=",qType," onclick=",qClick,">Reset</button>",!
+</script>
 <table border=1>
 <script language="Cache" runat="Server">
 Set tClassname = "dc.iris.transact"
 Set pWhere = ""
-//If $Data(objAccount),$IsObject(objAccount) {
+If $Data(iFilter) {
 //	Do ##class(Riches.Util).DebugTEST("Ledger.csp objAccount = "_objAccount)
 
-//	Set pWhere = "Account = "_objAccount.%Id()
+	Set pWhere = "iFilter = "_iFilter
+}
 	Set pTrClick = "javascript:tableClickHandler('#');"
 	Set pMaxRows = -1
 	Set tSC = $CLASSMETHOD(tClassname,"OutputTableData",pWhere,pTrClick,pMaxRows)
-//}
+
 Write "</table>",!
 </script>
 </body>
