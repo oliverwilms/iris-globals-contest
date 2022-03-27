@@ -52,10 +52,12 @@ If ($Get(iFilter) '= "") {
 	Set pWhere = pWhere_" AND iFilter = "_iFilter
 }
 If ($Get(iStartDate) '= "") {
-	Set pWhere = pWhere_" AND TranDate >= "_q_iStartDate_q
+	//Set pWhere = pWhere_" AND TranDate >= "_q_iStartDate_q
+	Set pWhere = pWhere_" AND iStartDate >= "_q_iStartDate_q
 }
 If ($Get(iEndDate) '= "") {
-	Set pWhere = pWhere_" AND TranDate <= "_q_iEndDate_q
+	//Set pWhere = pWhere_" AND TranDate <= "_q_iEndDate_q
+	Set pWhere = pWhere_" AND iEndDate <= "_q_iEndDate_q
 }
 If (pWhere '= "") {
 	Set pWhere = $Extract(pWhere,6,*)
