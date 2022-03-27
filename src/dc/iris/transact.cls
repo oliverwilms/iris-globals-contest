@@ -25,6 +25,18 @@ Property SubCategory As %String;
 
 Property TranDate As %String;
 
+Property zTranDate As %Integer [ Calculated, SqlComputeCode = {set {*}=##class(dc.iris.transact).GetTranDate({TranDate})}, SqlComputed ];
+
+ClassMethod GetTranDate(pStringDate As %String) As %Integer
+{
+	Try {
+		Set zTranDate = $ZDATEH(pStringDate)
+	} Catch {
+		Set zTranDate = 0
+	}
+	Quit $Get(zTranDate,0)
+}
+
 ClassMethod OutputTableData(
 	pWhere As %String = "",
 	pTrClick As %String = "window.location='Transact.csp?iAccount=#';",
