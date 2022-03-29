@@ -88,16 +88,8 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 	}
 	Set comma = ","
 	Set rows = -1
-	Set cAccount = 0
-	Set cCategory = 0
-	Set cCredit = 0
-	Set cDate = 0
-	Set cDebit = 0
-	Set cMerchant = 0
 	Try {
 		Use pCSV
-		Set tColumns = "Account,TranDate,Merchant,Category,AmountDebit,AmountCredit"
-		Set tQuery = "Insert into Riches.Transact ("_tColumns_") values "
 		For {
 			Read line
 			If ($Increment(rows) = 0) {
@@ -113,12 +105,6 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 				For ii = 1:1:$Length(headers,comma) {
 					Set title = $Piece(headers,comma,ii)
 					Do ..UnQuote(title,.title)
-					If (title = "Account") Set cAccount = ii
-					If (title = "Credit") Set cCredit = ii
-					If (title = "Date") Set cDate = ii
-					If (title = "Debit") Set cDebit = ii
-					If (title = "Merchant") Set cMerchant = ii
-					If '(title [ "SubCategory"),(title [ "Category") Set cCategory = ii
 					Set ^GLOBAL(tId,ii) = title
 				}
 				Continue
