@@ -1,3 +1,6 @@
+## iris-globals-contest
+This is a template to work with Embedded Python in InterSystems IRIS
+
 ## iris-embedded-python-template
 This is a template to work with Embedded Python in InterSystems IRIS
 
@@ -8,7 +11,7 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 ## Installation ZPM
 
 ```
-USER>zpm "install iris-python-template"
+USER>zpm "install iris-globals-contest"
 ```
 
 ## Installation docker
@@ -16,7 +19,7 @@ USER>zpm "install iris-python-template"
 Clone/git pull the repo into any local directory
 
 ```
-$ git clone https://github.com/intersystems-community/iris-embedded-python-template.git
+$ git clone https://github.com/oliverwilms/iris-globals-contest.git
 ```
 
 Open the terminal in this directory and run:
