@@ -1,9 +1,7 @@
 Class dc.iris.util
 {
 
-ClassMethod DebugMerge(
-	strMessage As %String = "",
-	ByRef pArray) As %Status
+ClassMethod DebugMerge(strMessage As %String = "", ByRef pArray) As %Status
 {
 	Merge ^TESTunit($I(^TESTunit)) = pArray
 	Set tValue = ""
@@ -38,9 +36,7 @@ ClassMethod GetStatusText(pStatus As %Status) As %String
 	Quit tReturn
 }
 
-ClassMethod ExecuteQueryOneValue(
-	pQuery As %String,
-	ByRef pResult As %String) As %Status
+ClassMethod ExecuteQueryOneValue(pQuery As %String, ByRef pResult As %String) As %Status
 {
 	Do ..DebugTEST("Riches.Util - ExecuteQueryOneValue")
 	Do ..DebugTEST("pQuery = "_pQuery)
@@ -71,9 +67,7 @@ ClassMethod GetDateValue(pValue As %String) As %Date
 	Quit $Get(tDate,0)
 }
 
-ClassMethod ImportCSV(
-	pCSV As %String = "",
-	pMaxRows As %Integer = 9999) As %Status
+ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Status
 {
 	If (pCSV = "") {
 		Set tExport = "/opt/irisbuild/data/finance-transactions-08-Jan-2022_08-25.csv"
@@ -96,14 +90,14 @@ ClassMethod ImportCSV(
 	Set rows = -1
 	Set cAccount = 0
 	Set cCategory = 0
-	Set cCheck = 0
+	//Set cCheck = 0
 	Set cCredit = 0
 	Set cDate = 0
 	Set cDebit = 0
-	Set cMemo = 0
+	//Set cMemo = 0
 	Set cMerchant = 0
-	Set cStatus = 0
-	Set cSubategory = 0
+	//Set cStatus = 0
+	//Set cSubategory = 0
 	Try {
 		Use pCSV
 		Set tColumns = "Account,TranDate,Merchant,Category,AmountDebit,AmountCredit"
@@ -122,7 +116,7 @@ ClassMethod ImportCSV(
 				Set headers = line
 				For ii = 1:1:$Length(headers,comma) {
 					Set title = $Piece(headers,comma,ii)
-					Set tSC = ..UnQuote(title,.title)
+					Do ..UnQuote(title,.title)
 					If (title = "Account") Set cAccount = ii
 					If (title = "Check") Set cCheck = ii
 					If (title = "Credit") Set cCredit = ii
@@ -159,7 +153,6 @@ ClassMethod ImportCSV(
 			If cCredit Set tValues = tValues_$Piece(line,comma,cCredit)
 			Set tValues = tValues_")"
 			Set tSQL = tQuery_tValues
-			//Set tSC = ##class(Riches.REST).PostSQL(tSQL,rows)
 		}
 	} Catch {
 	}
@@ -168,11 +161,7 @@ ClassMethod ImportCSV(
 	Quit $$$OK
 }
 
-ClassMethod UnQuote(
-	pQuote As %String = "",
-	Output pUnQuote As %String,
-	pOutQuote As %String = "",
-	pVerbose As %Integer = 0) As %Status
+ClassMethod UnQuote(pQuote As %String = "", Output pUnQuote As %String, pOutQuote As %String = "", pVerbose As %Integer = 0) As %Status
 {
 	Set boolContinue = 1
 	While boolContinue {
