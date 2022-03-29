@@ -114,14 +114,10 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 					Set title = $Piece(headers,comma,ii)
 					Do ..UnQuote(title,.title)
 					If (title = "Account") Set cAccount = ii
-					If (title = "Check") Set cCheck = ii
 					If (title = "Credit") Set cCredit = ii
 					If (title = "Date") Set cDate = ii
 					If (title = "Debit") Set cDebit = ii
-					If (title = "Memo") Set cMemo = ii
 					If (title = "Merchant") Set cMerchant = ii
-					If (title = "Status") Set cStatus = ii
-					If (title = "Subategory") Set cSubategory = ii
 					If '(title [ "SubCategory"),(title [ "Category") Set cCategory = ii
 					Set ^GLOBAL(tId,ii) = title
 				}
@@ -135,22 +131,6 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 				Set ^GLOBAL(tId,ii) = tData
 			}
 			Continue
-			/*
-			Set tValues = "("
-			If cAccount Set tValues = tValues_$Piece(line,comma,cAccount)
-			Set tValues = tValues_comma
-			If cDate Set tValues = tValues_$Piece(line,comma,cDate)
-			Set tValues = tValues_comma
-			If cMerchant Set tValues = tValues_$Piece(line,comma,cMerchant)
-			Set tValues = tValues_comma
-			If cCategory Set tValues = tValues_$Piece(line,comma,cCategory)
-			Set tValues = tValues_comma
-			If cDebit Set tValues = tValues_$Piece(line,comma,cDebit)
-			Set tValues = tValues_comma
-			If cCredit Set tValues = tValues_$Piece(line,comma,cCredit)
-			Set tValues = tValues_")"
-			Set tSQL = tQuery_tValues
-			*/
 		}
 	} Catch {
 	}
