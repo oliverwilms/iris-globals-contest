@@ -37,6 +37,20 @@ Menu CSP page:
 
 http://localhost:57700/csp/user/menu.csp
 
+Go to Transact.csp page
+
+If your IRIS has no ^GLOBAL, click Import button.
+
+It automatically calls class method to import data file into ^GLOBAL.
+
+If your IRIS has no ^COUNT, click Count button.
+
+It automatically calls class method to count Transaction data into ^COUNT.
+
+You can run adhoc query by entering Start Date, End Date and Filter. Filter is currently only applied to Category. Click Preview button to run query.
+
+Click Menu button to return to menu page.
+
 Open IRIS terminal:
 
 ```
