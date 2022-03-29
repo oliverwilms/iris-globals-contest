@@ -16,6 +16,10 @@ If ($Data(%request.Data("iStartDate",1))) {
 <script language="JavaScript">
 function goClickButton(id)
 {
+	if (id == 'MENU') {
+		document.location = "menu.csp";
+		return;
+	}
 	var iEndDate = document.getElementById("iEndDate").value;
 	var iFilter = id + document.getElementById("iFilter").value;
 	var iStartDate = document.getElementById("iStartDate").value;
@@ -44,6 +48,9 @@ Set q = """"
 Set qClick = q_"goClickButton('NEXT')"_q
 Set qType = q_"button"_q
 Write "<button type=",qType," onclick=",qClick,">Next</button>",!
+Set qClick = q_"goClickButton('MENU')"_q
+Set qType = q_"button"_q
+Write "<button type=",qType," onclick=",qClick,">Menu</button>",!
 </script>
 <table border=1>
 <caption>Transaction Table</caption>
