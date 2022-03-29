@@ -33,6 +33,10 @@ function goClickButton(id)
 		document.location = "Transact.csp?id=COUNT";
 		return;
 	}
+	if (id == 'MENU') {
+		document.location = "menu.csp";
+		return;
+	}
 	var iEndDate = document.getElementById("iEndDate").value;
 	var iFilter = document.getElementById("iFilter").value;
 	var iStartDate = document.getElementById("iStartDate").value;
@@ -63,6 +67,10 @@ If $Data(^GLOBAL)=0 {
 	Set qClick = q_"goClickButton('COUNT')"_q
 	Set qType = q_"button"_q
 	Write "<button type=",qType," onclick=",qClick,">Count</button>",!
+} Else {
+	Set qClick = q_"goClickButton('MENU')"_q
+	Set qType = q_"button"_q
+	Write "<button type=",qType," onclick=",qClick,">Menu</button>",!
 }
 </script>
 <table border=1>
