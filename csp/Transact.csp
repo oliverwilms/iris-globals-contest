@@ -3,6 +3,9 @@
 <head>
 <script language="Cache" runat="Server">
 Set tHeader = "iris-globals-contest"
+If ($Data(%request.Data("id",1))) {
+	Set tSC = ##class(dc.iris.util).ImportCSV()
+}
 If ($Data(%request.Data("iEndDate",1))) {
 	Set iEndDate = %request.Data("iEndDate",1)
 }
@@ -16,6 +19,10 @@ If ($Data(%request.Data("iStartDate",1))) {
 <script language="JavaScript">
 function goClickButton(id)
 {
+	if (id == 'IMPORT') {
+		document.location = "Transact.csp?id=IMPORT";
+		return;
+	}
 	var iEndDate = document.getElementById("iEndDate").value;
 	var iFilter = document.getElementById("iFilter").value;
 	var iStartDate = document.getElementById("iStartDate").value;
@@ -38,9 +45,9 @@ Set q = """"
 Set qClick = q_"goClickButton('PREVIEW')"_q
 Set qType = q_"button"_q
 Write "<button type=",qType," onclick=",qClick,">Preview</button>",!
-Set qClick = q_"goClickButton('RESET')"_q
+Set qClick = q_"goClickButton('IMPORT')"_q
 Set qType = q_"button"_q
-Write "<button type=",qType," onclick=",qClick,">Reset</button>",!
+Write "<button type=",qType," onclick=",qClick,">Import</button>",!
 </script>
 <table border=1>
 <caption>Transaction Table</caption>
