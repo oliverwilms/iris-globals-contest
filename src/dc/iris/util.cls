@@ -90,14 +90,10 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 	Set rows = -1
 	Set cAccount = 0
 	Set cCategory = 0
-	//Set cCheck = 0
 	Set cCredit = 0
 	Set cDate = 0
 	Set cDebit = 0
-	//Set cMemo = 0
 	Set cMerchant = 0
-	//Set cStatus = 0
-	//Set cSubategory = 0
 	Try {
 		Use pCSV
 		Set tColumns = "Account,TranDate,Merchant,Category,AmountDebit,AmountCredit"
@@ -135,10 +131,11 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 			Set tId = $Increment(^GLOBAL)
 			For ii = 1:1:$Length(line,comma) {
 				Set tData = $Piece(line,comma,ii)
-				Set tSC = ..UnQuote(tData,.tData)
+				Do ..UnQuote(tData,.tData)
 				Set ^GLOBAL(tId,ii) = tData
 			}
 			Continue
+			/*
 			Set tValues = "("
 			If cAccount Set tValues = tValues_$Piece(line,comma,cAccount)
 			Set tValues = tValues_comma
@@ -153,6 +150,7 @@ ClassMethod ImportCSV(pCSV As %String = "", pMaxRows As %Integer = 9999) As %Sta
 			If cCredit Set tValues = tValues_$Piece(line,comma,cCredit)
 			Set tValues = tValues_")"
 			Set tSQL = tQuery_tValues
+			*/
 		}
 	} Catch {
 	}
