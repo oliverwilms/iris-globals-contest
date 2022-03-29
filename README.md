@@ -51,6 +51,10 @@ You can run adhoc query by entering Start Date, End Date and Filter. Filter is c
 
 Click Menu button to return to menu page.
 
+Go to Count.csp page
+
+It automatically filters on the current month. Click on Previous button to see counts for the previous month or click Next button to go to next month.
+
 Open IRIS terminal:
 
 ```
