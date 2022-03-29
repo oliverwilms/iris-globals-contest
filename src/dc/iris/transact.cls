@@ -37,10 +37,7 @@ ClassMethod GetTranDate(pStringDate As %String) As %Integer
 	Quit $Get(zTranDate,0)
 }
 
-ClassMethod OutputTableData(
-	pWhere As %String = "",
-	pTrClick As %String = "window.location='Transact.csp?iAccount=#';",
-	pMaxRows = -1) As %Status
+ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "window.location='Transact.csp?iAccount=#';", pMaxRows = -1) As %Status
 {
 	Set tDebug = 1
 	Do:tDebug ##class(util).DebugTEST("dc.iris.transact - OutputTableData")
@@ -88,9 +85,8 @@ ClassMethod OutputTableData(
 	IF (tResult.%SQLCODE=0) { /*WRITE !,"Created a query",!*/ }
 	ELSEIF (tResult.%SQLCODE=-361) { /*WRITE !,"Query exists: ",tResult.%Message*/ }
 	ELSE { /*WRITE !,"CREATE QUERY error: ",tResult.%SQLCODE," ",tResult.%Message*/ QUIT tSC}
-	//Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
- 	Do ..OutputTableHead()
- 	Set (tSumCredit, tSumDebit) = 0
+	Do ..OutputTableHead()
+ 	Set (tRows, tSumCredit, tSumDebit) = 0
  	Write !,"<tbody>"
  	While tResult.%Next() {
 	 	If (tFilter '= "") {
@@ -98,6 +94,8 @@ ClassMethod OutputTableData(
 		 	Set tContinue = (tData '[ tFilter)
 		 	If tContinue { CONTINUE }
 	 	}
+		 Set tRows = tRows + 1
+		 If (tRows > pMaxRows) {}
 	 	//Set tValue = ##class(Util).EncodeLogicalDisplay(tResult.ID,tResult.Nickname)
 		Set tValue = tResult.ID
 		Write !,"<tr onclick=",tQuote,$Replace(pTrClick,"#",tValue),tQuote,">"
@@ -126,10 +124,7 @@ ClassMethod OutputTableData(
 	Quit tSC
 }
 
-ClassMethod OutputTableFoot(
-	pColSpan As %String = "",
-	pCredit As %String = "",
-	pDebit As %String = "") As %Status
+ClassMethod OutputTableFoot(pColSpan As %String = "", pCredit As %String = "", pDebit As %String = "") As %Status
 {
 	Set q = """"
 	Set qColSpan = q_pColSpan_q
