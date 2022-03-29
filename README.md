@@ -1,5 +1,5 @@
 ## iris-globals-contest
-This is a template to work with Embedded Python in InterSystems IRIS
+This app imports data file into ^GLOBAL and counts transactions per month into ^COUNT global.
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
