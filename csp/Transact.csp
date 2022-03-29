@@ -1,3 +1,4 @@
+<csp:class description="Allows adhoc queries">
 <html>
 <head>
 <script language="Cache" runat="Server">
@@ -18,7 +19,6 @@ function goClickButton(id)
 	var iEndDate = document.getElementById("iEndDate").value;
 	var iFilter = document.getElementById("iFilter").value;
 	var iStartDate = document.getElementById("iStartDate").value;
-	//document.location = "Transact.csp?debug=" + id + "&iFilter=" + iFilter; // + "&iAccount=" + iAccount;
 	document.location = "Transact.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
 }
 </script>
