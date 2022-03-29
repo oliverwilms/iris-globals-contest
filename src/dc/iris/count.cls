@@ -52,8 +52,34 @@ ClassMethod Count() As %Status
 		Set tSumDebit = tSumDebit + tDebit
 		Set ^COUNT(tYear,tMonth,tCategory) = tCount_"^"_tSumCredit_"^"_tSumDebit
 	}
+	Do ..Count2()
 	Set tTotal = tResult.%ROWCOUNT
 	Write tTotal," Transactions counted.",!
+	Quit $$$OK
+}
+
+ClassMethod Count2() As %Status
+{
+	Set tYear = ""
+	For {
+		Set tYear = $Order(^COUNT(tYear))
+		If (tYear = "") { QUIT }
+		Set tMonth = ""
+		For {
+			Set tMonth = $Order(^COUNT(tYear,tMonth))
+			If (tMonth = "") { QUIT }
+			Set tSub = ""
+			Set (tSumCount, tSumCredit, tSumDebit) = 0
+			For {
+				Set tSub = $Order(^COUNT(tYear,tMonth,tSub),1,tData)
+				If (tSub = "") { QUIT }
+				Set tSumCount = tSumCount + $Piece(tData,"^",1)
+				Set tSumCredit = tSumCredit + $Piece(tData,"^",2)
+				Set tSumDebit = tSumDebit + $Piece(tData,"^",3)
+			}
+			Set ^COUNT(tYear,tMonth) = tSumCount_"^"_tSumCredit_"^"_tSumDebit
+		}
+	}
 	Quit $$$OK
 }
 
