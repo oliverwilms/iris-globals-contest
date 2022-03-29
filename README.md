@@ -33,6 +33,10 @@ $ docker-compose up -d
 
 ## How to work with it
 
+Menu CSP page:
+
+http://localhost:57700/csp/user/menu.csp
+
 Open IRIS terminal:
 
 ```
