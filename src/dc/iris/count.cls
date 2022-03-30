@@ -184,4 +184,26 @@ ClassMethod OutputTableNada() As %Status
 	Quit $$$OK
 }
 
+ClassMethod Return2Dates(pReturn As %String, Output pStartDate As %String, Output pEndDate As %String)
+{
+	Set pReturn = $Get(pReturn)
+	Write "pReturn = ",pReturn,!
+	Set tYear = $Piece(pReturn,"^",1)
+	If (tYear = "") Set tYear = 1841
+	Set tMonth = $Piece(pReturn,"^",2)
+	If (tMonth = "") Set tMonth = 1
+	Set tDay = 1
+	Set tStartDate = tMonth_"/"_tDay_"/"_tYear
+	Set tMonth = tMonth + 1
+	If (tMonth > 12) {
+		Set tMonth = 1
+		Set tYear = tYear + 1
+	}
+	Set tDate = tMonth_"/"_tDay_"/"_tYear
+	Set tDateH = $ZDATEH(tDate)
+	Set tEndDate = $ZDATE(tDateH - 1)
+	Write "tStartDate = ",tStartDate,!
+	Write "tEndDate = ",tEndDate,!
+}
+
 }
