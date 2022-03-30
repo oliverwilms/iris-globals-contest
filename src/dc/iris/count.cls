@@ -193,7 +193,7 @@ ClassMethod Return2Dates(pReturn As %String, Output pStartDate As %String, Outpu
 	Set tMonth = $Piece(pReturn,"^",2)
 	If (tMonth = "") Set tMonth = 1
 	Set tDay = 1
-	Set tStartDate = tMonth_"/"_tDay_"/"_tYear
+	Set pStartDate = tMonth_"/"_tDay_"/"_tYear
 	Set tMonth = tMonth + 1
 	If (tMonth > 12) {
 		Set tMonth = 1
@@ -201,9 +201,9 @@ ClassMethod Return2Dates(pReturn As %String, Output pStartDate As %String, Outpu
 	}
 	Set tDate = tMonth_"/"_tDay_"/"_tYear
 	Set tDateH = $ZDATEH(tDate)
-	Set tEndDate = $ZDATE(tDateH - 1)
-	Write "tStartDate = ",tStartDate,!
-	Write "tEndDate = ",tEndDate,!
+	Set pEndDate = $ZDATE(tDateH - 1)
+	Write "pStartDate = ",pStartDate,!
+	Write "pEndDate = ",pEndDate,!
 }
 
 }
