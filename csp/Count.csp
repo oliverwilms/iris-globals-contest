@@ -72,11 +72,11 @@ If ($Get(iEndDate) '= "") {
 If (pWhere '= "") {
 	Set pWhere = $Extract(pWhere,6,*)
 }
-	Set pTrClick = "javascript:tableClickHandler('#');"
-	Set pMaxRows = -1
-	Set tReturn = $CLASSMETHOD(tClassname,"OutputTableData",pWhere,pTrClick,pMaxRows)
-
+Set pTrClick = "javascript:tableClickHandler('#');"
+Set pMaxRows = -1
+Set tReturn = $CLASSMETHOD(tClassname,"OutputTableData",pWhere,pTrClick,pMaxRows)
 Write "</table>",!
+Do ##class(dc.iris.count).Return2Dates(tReturn,.pStartDate,.pEndDate)
 </script>
 <script language="JavaScript">
 	var months = 'January,February,March,April,May,June,July,August,September,October,November,December';
@@ -87,6 +87,10 @@ Write "</table>",!
 	var iMonth = iArray[2];
 	var iYear = iArray[1];
 	if (iMonth > 0) document.getElementById("header1").innerHTML = myArray[iMonth-1] + ' ' + iYear;
+	var iStartDate = '#(pStartDate)#';
+	var iEndDate = '#(pEndDate)#';
+	document.getElementById("iStartDate").value = iStartDate;
+	document.getElementById("iEndDate").value = iEndDate;
 </script>
 </body>
 </html>
