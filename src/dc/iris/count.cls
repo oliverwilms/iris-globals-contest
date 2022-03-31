@@ -83,7 +83,7 @@ ClassMethod Count2() As %Status
 	Quit $$$OK
 }
 
-ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "window.location='Transact.csp?iAccount=#';", pMaxRows = -1) As %String
+ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "", pMaxRows = -1) As %String
 {
 	Set tDebug = 1
 	Do:tDebug ##class(util).DebugTEST("dc.iris.count - OutputTableCount2")
@@ -135,23 +135,27 @@ ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "win
 	 	Set tReturn = "^"_tYear_"^"_tMonth
  		Quit tReturn
 	}
+	Set tReturn = "^"_tYear_"^"_tMonth
 	Set tMonth = tMonth + 1
 	Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
 	If (tMonth = "") {
 		Set tYear = $Order(^COUNT(tYear),tOrder)
 		Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
 	}
-	Do ..OutputTableHead()
+	Set pHead = "Month^Count^Debit^Credit"
+	Do ..OutputTableHead(pHead)
 	Set (tSumCount, tSumCredit, tSumDebit) = 0
 	Write !,"<tbody>"
 	Set tData = $Get(^COUNT(tYear,tMonth))
 	For {
 		For {
 			Set tCategory = tMonth_"/"_tYear
+			Set tClick = $Replace(pTrClick,"#",tCategory)
 			Set tCount = $Piece(tData,"^",1)
 			Set tCredit = $Piece(tData,"^",2)
 			Set tDebit = $Piece(tData,"^",3)
-			Write !,"<tr><td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>"
+			Write !,"<tr onclick=""",tClick,""";>"
+			Write "<td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>"
 			Set tSumCount = tSumCount + tCount
 			Set tSumCredit = tSumCredit + tCredit
 			Set tSumDebit = tSumDebit + tDebit
@@ -163,12 +167,11 @@ ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "win
 		Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
 	}
 	Write !,"</tbody>"
- 	Do ..OutputTableFoot(1,tSumCount,tSumCredit,tSumDebit)
- 	Set tReturn = "^"_tYear_"^"_tMonth
- 	Quit tReturn
+	Do ..OutputTableFoot(1,tSumCount,tSumCredit,tSumDebit)
+	Quit tReturn
 }
 
-ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "window.location='Transact.csp?iAccount=#';", pMaxRows = -1) As %String
+ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "", pMaxRows = -1) As %String
 {
 	Set tDebug = 1
 	Do:tDebug ##class(util).DebugTEST("dc.iris.count - OutputTableData")
@@ -254,10 +257,15 @@ ClassMethod OutputTableFoot(pColSpan As %String = "", pCount As %String = "", pC
 	Quit $$$OK
 }
 
-ClassMethod OutputTableHead() As %Status
+ClassMethod OutputTableHead(pHead As %String = "") As %Status
 {
+	If (pHead = "") Set pHead = "Category^Count^Debit^Credit"
 	Write !,"<thead>"
-	Write !,"<tr><th>Category</th><th>Count</th><th>Debit</th><th>Credit</th></tr>"
+	Write !,"<tr>"
+	For ii = 1:1:$Length(pHead,"^") {
+		Write !,"<th>",$Piece(pHead,"^",ii),"</th>"
+	}
+	Write !,"</tr>"
 	Write !,"</thead>"
 	Quit $$$OK
 }
