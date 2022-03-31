@@ -83,6 +83,91 @@ ClassMethod Count2() As %Status
 	Quit $$$OK
 }
 
+ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "window.location='Transact.csp?iAccount=#';", pMaxRows = -1) As %String
+{
+	Set tDebug = 1
+	Do:tDebug ##class(util).DebugTEST("dc.iris.count - OutputTableCount2")
+	Do:tDebug ##class(util).DebugTEST("pWhere = "_pWhere)
+	If (pTrClick = "") Set pMaxRows = -1  // ?
+	Set tFilter = ""
+	Set tOrder = -1  // Show newest first
+	Set (tYear, tMonth) = ""
+	// iFilter = NEXT^2022^12
+	If (pWhere [ "iFilter") {
+		Set tFilter = $Piece(pWhere," AND ",1,1)
+		Set tFilter = $Piece(tFilter,"iFilter = ",2)
+		Set tYear = $Piece(tFilter,"^",2)
+		Set tMonth = $Piece(tFilter,"^",3)
+		Do:tDebug ##class(util).DebugTEST("tFilter = "_tFilter)
+		Set pWhere = $Piece(pWhere," AND ",2,*)
+	}
+	If (tMonth = "") Set tYear = ""
+	If (tYear = "") {
+		Set tDate = $ZDATE($HOROLOG)
+		Set tYear = $Piece(tDate,"/",3)
+		Set tMonth = +$Piece(tDate,"/",1)  // Drop leading zero
+	}
+	If ($Extract(tFilter,1,4) = "NEXT") {
+		Set tMonth = $Order(^COUNT(tYear,tMonth),1)
+		If (tMonth = "") {
+			Set tYear = $Order(^COUNT(tYear),1)
+			If (tYear '= "") {
+				Set tMonth = $Order(^COUNT(tYear,tMonth),1)
+			}
+		}
+	}
+	If ($Extract(tFilter,1,4) = "PREV") {
+		Set tMonth = $Order(^COUNT(tYear,tMonth),-1)
+		If (tMonth = "") {
+			Set tYear = $Order(^COUNT(tYear),-1)
+			If (tYear '= "") {
+				Set tMonth = $Order(^COUNT(tYear,tMonth),-1)
+			}
+		}
+	}
+	If (tYear = "") {
+		Do ..OutputTableNada()
+	 	Set tReturn = "^"_tYear_"^"_tMonth
+ 		Quit tReturn
+	}
+	If (tMonth = "") {
+		Do ..OutputTableNada()
+	 	Set tReturn = "^"_tYear_"^"_tMonth
+ 		Quit tReturn
+	}
+	Set tMonth = tMonth + 1
+	Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
+	If (tMonth = "") {
+		Set tYear = $Order(^COUNT(tYear),tOrder)
+		Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
+	}
+	Do ..OutputTableHead()
+	Set (tSumCount, tSumCredit, tSumDebit) = 0
+	Write !,"<tbody>"
+	Set tData = $Get(^COUNT(tYear,tMonth))
+	For {
+		For {
+			Set tCategory = tMonth_"/"_tYear
+			Set tCount = $Piece(tData,"^",1)
+			Set tCredit = $Piece(tData,"^",2)
+			Set tDebit = $Piece(tData,"^",3)
+			Write !,"<tr><td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>"
+			Set tSumCount = tSumCount + tCount
+			Set tSumCredit = tSumCredit + tCredit
+			Set tSumDebit = tSumDebit + tDebit
+			Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
+			If (tMonth = "") { QUIT }
+		}
+		Set tYear = $Order(^COUNT(tYear),tOrder,tData)
+		If (tYear = "") { QUIT }
+		Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
+	}
+	Write !,"</tbody>"
+ 	Do ..OutputTableFoot(1,tSumCount,tSumCredit,tSumDebit)
+ 	Set tReturn = "^"_tYear_"^"_tMonth
+ 	Quit tReturn
+}
+
 ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "window.location='Transact.csp?iAccount=#';", pMaxRows = -1) As %String
 {
 	Set tDebug = 1
@@ -153,7 +238,6 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
  	Do ..OutputTableFoot(1,tSumCount,tSumCredit,tSumDebit)
  	Set tReturn = "^"_tYear_"^"_tMonth
  	Quit tReturn
-	Quit $$$OK
 }
 
 ClassMethod OutputTableFoot(pColSpan As %String = "", pCount As %String = "", pCredit As %String = "", pDebit As %String = "") As %Status
