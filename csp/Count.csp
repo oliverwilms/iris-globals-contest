@@ -3,6 +3,7 @@
 <head>
 <script language="Cache" runat="Server">
 Set tHeader = "iris-globals-contest"
+Set tTableCaption = "Summary Table"
 If ($Data(%request.Data("iEndDate",1))) {
 	Set iEndDate = %request.Data("iEndDate",1)
 }
@@ -24,6 +25,19 @@ function goClickButton(id)
 	var iFilter = id + document.getElementById("iFilter").value;
 	var iStartDate = document.getElementById("iStartDate").value;
 	document.location = "Count.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
+}
+function goClickCount2(id)
+{
+	//alert(id);
+	document.location = "Count.csp?&iFilter=" + id + "&iEndDate=" + id + "&iStartDate=" + id;
+	return;
+		document.location = "menu.csp";
+		return;
+	
+	var iEndDate = document.getElementById("iEndDate").value;
+	var iFilter = id + document.getElementById("iFilter").value;
+	var iStartDate = document.getElementById("iStartDate").value;
+	
 }
 </script>
 <title>#(tHeader)#</title>
@@ -53,10 +67,11 @@ Set qType = q_"button"_q
 Write "<button type=",qType," onclick=",qClick,">Menu</button>",!
 </script>
 <table border=1>
-<caption>Transaction Table</caption>
+<caption>#(tTableCaption)#</caption>
 <script language="Cache" runat="Server">
 Set q = "'"
 Set tClassname = "dc.iris.count"
+Set tClassMethod = "OutputTableCount2"
 Set pWhere = ""
 If ($Get(iFilter) '= "") {
 	Set pWhere = pWhere_" AND iFilter = "_iFilter
@@ -71,10 +86,11 @@ If ($Get(iEndDate) '= "") {
 }
 If (pWhere '= "") {
 	Set pWhere = $Extract(pWhere,6,*)
+	Set tClassMethod = "OutputTableData"
 }
-Set pTrClick = "javascript:tableClickHandler('#');"
+Set pTrClick = "javascript:goClickCount2('#');"
 Set pMaxRows = -1
-Set tReturn = $CLASSMETHOD(tClassname,"OutputTableData",pWhere,pTrClick,pMaxRows)
+Set tReturn = $CLASSMETHOD(tClassname,tClassMethod,pWhere,pTrClick,pMaxRows)
 Write "</table>",!
 Do ##class(dc.iris.count).Return2Dates(tReturn,.pStartDate,.pEndDate)
 </script>
