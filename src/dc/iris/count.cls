@@ -232,7 +232,10 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "", pM
 		Set tCount = $Piece(tData,"^",1)
 		Set tCredit = $Piece(tData,"^",2)
 		Set tDebit = $Piece(tData,"^",3)
-		Write "<tr><td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>",!
+		Set tReturn = "^"_tYear_"^"_tMonth_"^"_tCategory
+		Set tClick = $Replace(pTrClick,"#",tReturn)
+		Write !,"<tr onclick=""",tClick,""";>"
+		Write "<td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>"
 		Set tSumCount = tSumCount + tCount
 		Set tSumCredit = tSumCredit + tCredit
 		Set tSumDebit = tSumDebit + tDebit
