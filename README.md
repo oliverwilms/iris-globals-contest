@@ -54,32 +54,3 @@ Click Menu button to return to menu page.
 Go to Count.csp page
 
 It displays monthly totals for number of transactions and total debits and credits. Click on a table row to see counts for the selected month broken down by Categories. Click on Previous button to see counts for the previous month or click Next button to go to next month.
-
-Open IRIS terminal:
-
-```
-$ docker-compose exec iris iris session iris
-USER>
-```
-
-The first test demonstrates the call to a standard python library working with dates datetime
-```
-USER>d ##class(dc.python.test).Today()
-2021-02-09
-```
-
-Another example shows the work of a custom lib sample.py which is installed with repo or ZPM. It has function hello which returns string "world":
-```
-USER>d ##class(dc.python.test).Hello()
-World
-```
-
-Another example shows how to work with files and use pandas and numpy libs. 
-It calculates the mean age of Titanic passengers:
-
-```
-USER>d ##class(dc.python.test).TitanicMeanAge()
-mean age=29.69911764705882
-
-```
-
