@@ -2,6 +2,8 @@
 <html>
 <head>
 <script language="Cache" runat="Server">
+Set tDebug = 1
+Do:tDebug ##class(dc.iris.util).DebugTEST("Count.csp - head")
 Set tHeader = "iris-globals-contest"
 Set tTableCaption = "Summary Table"
 If ($Data(%request.Data("iEndDate",1))) {
@@ -13,6 +15,9 @@ If ($Data(%request.Data("iFilter",1))) {
 If ($Data(%request.Data("iStartDate",1))) {
 	Set iStartDate = %request.Data("iStartDate",1)
 }
+Do:tDebug ##class(dc.iris.util).DebugTEST("iEndDate = "_$Get(iEndDate))
+Do:tDebug ##class(dc.iris.util).DebugTEST("iFilter = "_$Get(iFilter))
+Do:tDebug ##class(dc.iris.util).DebugTEST("iStartDate = "_$Get(iStartDate))
 </script>
 <script language="JavaScript">
 function goClickButton(id)
@@ -26,18 +31,17 @@ function goClickButton(id)
 	var iStartDate = document.getElementById("iStartDate").value;
 	document.location = "Count.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
 }
+function goClickCount1(id)
+{
+	//alert(id);
+	document.location = "Transact.csp?&iFilter=" + id;  // + "&iEndDate=" + id + "&iStartDate=" + id;
+	return;
+}
 function goClickCount2(id)
 {
 	//alert(id);
-	document.location = "Count.csp?&iFilter=" + id + "&iEndDate=" + id + "&iStartDate=" + id;
+	document.location = "Count.csp?&iFilter=" + id;  // + "&iEndDate=" + id + "&iStartDate=" + id;
 	return;
-		document.location = "menu.csp";
-		return;
-	
-	var iEndDate = document.getElementById("iEndDate").value;
-	var iFilter = id + document.getElementById("iFilter").value;
-	var iStartDate = document.getElementById("iStartDate").value;
-	
 }
 </script>
 <title>#(tHeader)#</title>
@@ -72,6 +76,7 @@ Write "<button type=",qType," onclick=",qClick,">Menu</button>",!
 Set q = "'"
 Set tClassname = "dc.iris.count"
 Set tClassMethod = "OutputTableCount2"
+Set tClick = "goClickCount2"
 Set pWhere = ""
 If ($Get(iFilter) '= "") {
 	Set pWhere = pWhere_" AND iFilter = "_iFilter
@@ -87,8 +92,9 @@ If ($Get(iEndDate) '= "") {
 If (pWhere '= "") {
 	Set pWhere = $Extract(pWhere,6,*)
 	Set tClassMethod = "OutputTableData"
+	Set tClick = "goClickCount1"
 }
-Set pTrClick = "javascript:goClickCount2('#');"
+Set pTrClick = "javascript:"_tClick_"('#');"
 Set pMaxRows = -1
 Set tReturn = $CLASSMETHOD(tClassname,tClassMethod,pWhere,pTrClick,pMaxRows)
 Write "</table>",!
