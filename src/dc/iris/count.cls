@@ -149,7 +149,7 @@ ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "", 
 	Set tData = $Get(^COUNT(tYear,tMonth))
 	For {
 		For {
-			Set tCategory = tMonth_"/"_tYear
+			Set tCategory = "^"_tYear_"^"_tMonth
 			Set tClick = $Replace(pTrClick,"#",tCategory)
 			Set tCount = $Piece(tData,"^",1)
 			Set tCredit = $Piece(tData,"^",2)
