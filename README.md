@@ -67,7 +67,7 @@ USER>do ##class(dc.iris.util).ImportCSV()
 The global looks like this:
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_GLOBAL.JPG)
 
-I used Brendan Bannon's Article The Art of Mapping Globals to Classes to map ^GLOBAL to persistent class dc.iris.transact. Now it can be seen here:
+I used Brendan Bannon's Article [The Art of Mapping Globals to Classes] (https://community.intersystems.com/post/art-mapping-globals-classes-1-3) to map ^GLOBAL to persistent class dc.iris.transact. Now it can be seen here:
 
 Next I created a CSP page where I could filter the transaction data at will.
 
