@@ -102,7 +102,6 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
 		//Write !,"<td>",$ZDATE(tResult.TranDate),"</td>"
 		Set tDisplay = tResult.TranDate
 		Write !,"<td>",tDisplay,"</td>"
-		//Write !,"<td>",$ZTIME(tResult.TranTime),"</td>"
 		Write !,"<td>",tResult.Account,"</td>"
 		Write !,"<td>",tResult.CheckNumber,"</td>"
 		//Set tQuery = "SELECT Nickname FROM Riches.Merchant WHERE ID = "_tResult.Merchant
