@@ -58,3 +58,7 @@ It displays monthly totals for number of transactions and total debits and credi
 Data originates from Excel
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_Excel.JPG)
+
+I decided to store the data in ^GLOBAL each cell getting its own node
+
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_GLOBAL.JPG)
