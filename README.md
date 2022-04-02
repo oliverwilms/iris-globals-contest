@@ -78,3 +78,8 @@ I created another CSP page to view the monthly data snapshots like this:
 I wanted to see monthly totals for a series of months at a glance as can be seen here:
 
 I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
+
+
+## Online Demo
+You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/dsw/index.html#/USER/Generated/Samples%20for%20finance.dashboard)
+
