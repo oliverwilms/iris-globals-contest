@@ -8,9 +8,9 @@ on:
 
 env:
   # Change this section according to your needs
-  IMAGE_NAME:   finance
-  SERVICE:      finance
-  DOMAIN_NAME:  finance.demo.community.intersystems.com
+  IMAGE_NAME:   irisglobalscontest
+  SERVICE:      irisglobalscontest
+  DOMAIN_NAME:  irisglobalscontest.demo.community.intersystems.com
 
   # Leave this section untouched
   PROJECT_ID:   iris-community-demos
