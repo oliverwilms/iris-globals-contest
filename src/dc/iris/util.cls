@@ -148,7 +148,6 @@ ClassMethod UnQuote(pQuote As %String = "", Output pUnQuote As %String, pOutQuot
 		//Do ..DebugTEST("pEscape = "_pEscape)
 	}
 	Set pUnQuote = pOutQuote_pEscape_pOutQuote
-	//If (pUnQuote = "") Set pUnQuote = "''"
 	Do:pVerbose ..DebugTEST("pUnQuote = "_pUnQuote)
 	Quit $$$OK
 }
