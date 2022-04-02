@@ -66,3 +66,15 @@ USER>do ##class(dc.iris.util).ImportCSV()
 
 The global looks like this:
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_GLOBAL.JPG)
+
+I used Brendan Bannon's Article The Art of Mapping Globals to Classes to map ^GLOBAL to persistent class dc.iris.transact. Now it can be seen here:
+
+Next I created a CSP page where I could filter the transaction data at will.
+
+I wanted to see transaction counts and totals for each category one month at a time. I accumulated data into ^COUNT like this:
+
+I created another CSP page to view the monthly data snapshots like this:
+
+I wanted to see monthly totals for a series of months at a glance as can be seen here:
+
+I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
