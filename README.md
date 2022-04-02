@@ -59,6 +59,10 @@ Data originates from Excel
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_Excel.JPG)
 
-I decided to store the data in ^GLOBAL each cell getting its own node
+I decided to store the data in ^GLOBAL each cell getting its own node. You can try it out for yourself with this command:
+```
+USER>do ##class(dc.iris.util).ImportCSV()
+```
 
+The global looks like this:
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_GLOBAL.JPG)
