@@ -54,3 +54,7 @@ Click Menu button to return to menu page.
 Go to Count.csp page
 
 It displays monthly totals for number of transactions and total debits and credits. Click on a table row to see counts for the selected month broken down by Categories. Click on Previous button to see counts for the previous month or click Next button to go to next month.
+
+Data originates from Excel
+
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_Excel.JPG)
