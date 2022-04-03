@@ -43,15 +43,13 @@ Go to Transact.csp page where the data can be imported. Alternative option from 
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_transact.png)
 
-If your IRIS has no ^GLOBAL, click Import button.
-
-It automatically calls class method to import data file into ^GLOBAL.
+If your IRIS has no ^GLOBAL, click Import button. It automatically calls class method to import data file into ^GLOBAL.
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_transact_after_Import.png)
 
-If your IRIS has no ^COUNT, click Count button.
+After Import the button is replaced with Count button. If your IRIS has no ^COUNT, click Count button. It automatically calls class method to count Transaction data into ^COUNT. After Count the button is replaced with Menu button.
 
-It automatically calls class method to count Transaction data into ^COUNT.
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_transact_after_Count.png)
 
 You can run adhoc query by entering Start Date, End Date and Filter. Filter is currently only applied to Category. Click Preview button to run query.
 
