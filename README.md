@@ -78,7 +78,7 @@ I created another CSP page to view the monthly data snapshots like this:
 I wanted to see monthly totals for a series of months at a glance as can be seen here:
 
 I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
-
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_menu.png)
 
 ## Online Demo
 You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
