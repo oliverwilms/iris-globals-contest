@@ -59,6 +59,8 @@ Go to Count.csp page
 
 It displays monthly totals for number of transactions and total debits and credits. Click on a table row to see counts for the selected month broken down by Categories. Click on Previous button to see counts for the previous month or click Next button to go to next month.
 
+The top-down workflow of this app is the opposite of how the app was developed.
+
 Data originates from Excel
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/Capture_Excel.JPG)
@@ -91,4 +93,3 @@ I wanted to see monthly totals for a series of months at a glance as can be seen
 
 ## Online Demo
 You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
-
