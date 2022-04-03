@@ -83,7 +83,7 @@ USER>do ##class(dc.iris.count).Count()
 ```
 
 The global looks like this:
-![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_COUNT.JPG)
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_COUNT.png)
 
 I created another CSP page to view the monthly data snapshots like this:
 
