@@ -50,6 +50,8 @@ If your IRIS has no ^GLOBAL, click Import button.
 
 It automatically calls class method to import data file into ^GLOBAL.
 
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_transact_after_Import.png)
+
 If your IRIS has no ^COUNT, click Count button.
 
 It automatically calls class method to count Transaction data into ^COUNT.
