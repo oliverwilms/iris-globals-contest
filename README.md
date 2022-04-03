@@ -35,15 +35,9 @@ $ docker-compose up -d
 
 I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
 
-Menu CSP page links
-
-http://localhost:57700/csp/user/menu.csp
-
-or - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
+Try it on your local installation http://localhost:57700/csp/user/menu.csp or - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_menu.png)
-
-You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
 
 Go to Transact.csp page
 
