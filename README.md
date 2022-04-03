@@ -39,7 +39,7 @@ Try it on your local installation http://localhost:57700/csp/user/menu.csp or - 
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_menu.png)
 
-Go to Transact.csp page
+Go to Transact.csp page where the data can be imported. Also available from Terminal
 
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_transact.png)
 
