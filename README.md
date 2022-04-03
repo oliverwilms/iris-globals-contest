@@ -34,13 +34,16 @@ $ docker-compose up -d
 ## How to work with it
 
 I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
-![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_menu.png)
 
 Menu CSP page links
 
 http://localhost:57700/csp/user/menu.csp
 
 or - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
+
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_menu.png)
+
+You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
 
 Go to Transact.csp page
 
@@ -87,8 +90,6 @@ I wanted to see transaction counts and totals for each category one month at a t
 I created another CSP page to view the monthly data snapshots like this:
 
 I wanted to see monthly totals for a series of months at a glance as can be seen here:
-
-I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
 
 ## Online Demo
 You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
