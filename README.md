@@ -33,6 +33,9 @@ $ docker-compose up -d
 
 ## How to work with it
 
+I looked for a menu to navigate between the different CSP pages. I used the existing menu.csp with no changes required.
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_menu.png)
+
 Menu CSP page:
 
 http://localhost:57700/csp/user/menu.csp
