@@ -77,7 +77,13 @@ I used Brendan Bannon's Article The Art of Mapping Globals to Classes (https://c
 
 Next I created a CSP page where I could filter the transaction data at will.
 
-I wanted to see transaction counts and totals for each category one month at a time. I accumulated data into ^COUNT like this:
+I wanted to see transaction counts and totals for each category one month at a time. I accumulated data into ^COUNT with this command:
+```
+USER>do ##class(dc.iris.count).Count()
+```
+
+The global looks like this:
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_COUNT.JPG)
 
 I created another CSP page to view the monthly data snapshots like this:
 
