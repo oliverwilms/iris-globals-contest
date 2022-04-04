@@ -88,8 +88,12 @@ The global looks like this:
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_COUNT.png)
 
 I created another CSP page to view the monthly data snapshots like this:
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_count_csp_after_click.png)
 
-I wanted to see monthly totals for a series of months at a glance as can be seen here:
+You see the above pictured page when you click on any table row of the summary Count.csp pictured below.
+
+I wanted to see monthly totals for a series of months at a glance. Just open Count.csp from the menu:
+![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_Count_csp.png)
 
 ## Online Demo
 You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
