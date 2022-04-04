@@ -125,17 +125,19 @@ ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "", 
 			}
 		}
 	}
+	Set tReturn = "^"_tYear_"^"_tMonth
 	If (tYear = "") {
 		Do ..OutputTableNada()
-	 	Set tReturn = "^"_tYear_"^"_tMonth
  		Quit tReturn
 	}
 	If (tMonth = "") {
 		Do ..OutputTableNada()
-	 	Set tReturn = "^"_tYear_"^"_tMonth
  		Quit tReturn
 	}
-	Set tReturn = "^"_tYear_"^"_tMonth
+	If ($Data(^COUNT) = 0) {
+		Do ..OutputTableNada()
+		Quit tReturn
+	}
 	Set tMonth = tMonth + 1
 	Set tMonth = $Order(^COUNT(tYear,tMonth),tOrder,tData)
 	If (tMonth = "") {
