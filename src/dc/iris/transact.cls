@@ -13,7 +13,7 @@ Property Credit As %String;
 
 Property Debit As %String;
 
-Property Memo As %String;
+Property Memo As %String(MAXLEN = 32766);
 
 Property Merchant As %String;
 
