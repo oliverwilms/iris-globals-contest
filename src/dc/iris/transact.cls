@@ -34,6 +34,7 @@ ClassMethod GetTranDate(pStringDate As %String) As %Integer
 	} Catch {
 		Set zTranDate = 0
 	}
+	If (pStringDate ? 4N1"-"2N1"-"2N) Set zTranDate = $ZDATEH(pStringDate,8)
 	Quit $Get(zTranDate,0)
 }
 
