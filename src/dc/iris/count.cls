@@ -33,6 +33,7 @@ ClassMethod Count() As %Status
 			Set tYear = $Piece(tTranDate,"-",1)
 		}
 		If (tYear > 0),(tYear < 50) Set tYear = tYear + 2000
+		Set tMonth = +tMonth  // Eliminate leading zero
 		Set tAccount = tResult.Account
 		Set tCategory = tResult.Category
 		If (tCategory = "") Set tCategory = 0
