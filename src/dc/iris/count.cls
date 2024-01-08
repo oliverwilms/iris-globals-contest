@@ -28,6 +28,10 @@ ClassMethod Count() As %Status
 			Set tMonth = $Piece(tTranDate,"/",1)
 			Set tYear = $Piece(tTranDate,"/",3)
 		}
+		If (tTranDate ? 1.4N1"-"1.2N1"-"1.2N) {
+			Set tMonth = $Piece(tTranDate,"-",2)
+			Set tYear = $Piece(tTranDate,"-",1)
+		}
 		Set tAccount = tResult.Account
 		Set tCategory = tResult.Category
 		If (tCategory = "") Set tCategory = 0
