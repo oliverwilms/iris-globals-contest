@@ -41,7 +41,6 @@ ClassMethod Count() As %Status
 		If (tCategory = "") Set tCategory = 0
 		Set tDebit = $Translate(tResult.Debit,",","")  // Remove commas
 		Set tCredit = $Translate(tResult.Credit,",","")  // Remove commas
-		Set tCredit = tResult.Credit
 		If (tAccount '= ""),$Data(^TRANSLATE("Credit-Debit",tAccount)) {
 			Set tCreditDebit = $Get(^TRANSLATE("Credit-Debit",tAccount))
 			If (tCreditDebit = "Credit is Debit") {
