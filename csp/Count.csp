@@ -44,6 +44,11 @@ function goClickCount2(id)
 	return;
 }
 </script>
+<style>
+td {
+  text-align: right;
+}
+</style>
 <title>#(tHeader)#</title>
 </head>
 
