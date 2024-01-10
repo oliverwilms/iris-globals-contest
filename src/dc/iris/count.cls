@@ -89,6 +89,14 @@ ClassMethod Count2() As %Status
 	Quit $$$OK
 }
 
+ClassMethod OutputFourTD(pCategory As %String, pCount As %String, pDebit As %String, pCredit As %String) As %Status
+{
+	Set tCreditFN = $FN(pCredit,",",2)
+	Set tDebitFN = $FN(pDebit,",",2)
+	Write "<td>",pCategory,"</td><td>",pCount,"</td><td>",tDebitFN,"</td><td>",tCreditFN,"</td></tr>"
+	Quit $$$OK
+}
+
 ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "", pMaxRows = -1) As %String
 {
 	Set tDebug = 1
@@ -163,7 +171,7 @@ ClassMethod OutputTableCount2(pWhere As %String = "", pTrClick As %String = "", 
 			Set tCredit = $Piece(tData,"^",2)
 			Set tDebit = $Piece(tData,"^",3)
 			Write !,"<tr onclick=""",tClick,""";>"
-			Write "<td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>"
+			Set tSC = ..OutputFourTD(tCategory,tCount,tDebit,tCredit)
 			Set tSumCount = tSumCount + tCount
 			Set tSumCredit = tSumCredit + tCredit
 			Set tSumDebit = tSumDebit + tDebit
@@ -239,11 +247,13 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "", pM
 		If (tCategory = "") { QUIT }
 		Set tCount = $Piece(tData,"^",1)
 		Set tCredit = $Piece(tData,"^",2)
+		Set tCreditFN = $FN(tCredit,",",2)
 		Set tDebit = $Piece(tData,"^",3)
+		Set tDebitFN = $FN(tDebit,",",2)
 		Set tReturn = "^"_tYear_"^"_tMonth_"^"_tCategory
 		Set tClick = $Replace(pTrClick,"#",tReturn)
 		Write !,"<tr onclick=""",tClick,""";>"
-		Write "<td>",tCategory,"</td><td>",tCount,"</td><td>",tDebit,"</td><td>",tCredit,"</td></tr>"
+		Set tSC = ..OutputFourTD(tCategory,tCount,tDebit,tCredit)
 		Set tSumCount = tSumCount + tCount
 		Set tSumCredit = tSumCredit + tCredit
 		Set tSumDebit = tSumDebit + tDebit
