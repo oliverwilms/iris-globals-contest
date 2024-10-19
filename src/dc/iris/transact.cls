@@ -86,9 +86,10 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
 	Set tQuote = """"
 	Set tSC = $$$OK
 	Set tTable = "dc_iris.transact"
+	Set tOrderBy = " Order By TranDate, Account"
 	Set tWHERE = ""
 	If (pWhere '= "") Set tWHERE = " WHERE "_pWhere
-	Set tQuery = "SELECT * FROM "_tTable_tWHERE
+	Set tQuery = "SELECT * FROM "_tTable_tWHERE_tOrderBy
 	Do:tDebug ##class(util).DebugTEST("tQuery = "_tQuery)
 	Set tStatement = ##class(%SQL.Statement).%New()
 	Set tSC = tStatement.%Prepare(.tQuery)  // Create a cached query
