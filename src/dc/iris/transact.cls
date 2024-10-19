@@ -27,6 +27,19 @@ Property TranDate As %String;
 
 Property zTranDate As %Integer [ Calculated, SqlComputeCode = {set {*}=##class(dc.iris.transact).GetTranDate({TranDate})}, SqlComputed ];
 
+ClassMethod AddCommas(pAmount As %String = 1234.56) As %String
+{
+	Set tReturn = pAmount
+	If (pAmount > 1000) {
+		Set ll = $Length(pAmount,".")
+		If (ll < 2) Set pAmount = pAmount_".00"
+		Set tWhole = $Piece(pAmount,".",1)
+		Set ll = $Length(tWhole)
+		Set tReturn = $Extract(tWhole,1,(ll-3))_","_$Extract(tWhole,(ll-2),*)_"."_$Piece(pAmount,".",2,*)
+	}
+	Quit tReturn
+}
+
 ClassMethod GetTranDate(pStringDate As %String) As %Integer
 {
 	Try {
@@ -120,7 +133,7 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
 		Set tSumDebit = tSumDebit + ..StripNumber(tResult.Debit)
 	}
 	Write !,"</tbody>"
- 	Do ..OutputTableFoot(5,tSumCredit,tSumDebit)
+ 	Do ..OutputTableFoot(5,..AddCommas(tSumCredit),..AddCommas(tSumDebit))
 	Quit tSC
 }
 
