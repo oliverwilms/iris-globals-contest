@@ -67,6 +67,11 @@ function goClickButton(id)
 	document.location = "Transact.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
 }
 </script>
+<style>
+td {
+  text-align: right;
+}
+</style>
 <title>#(tHeader)#</title>
 </head>
 
