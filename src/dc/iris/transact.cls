@@ -116,8 +116,8 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
 		Write !,"<td>",tResult.Debit,"</td>"
 		Write !,"<td>",tResult.Credit,"</td>"
 		Write !,"</tr>"
-		Set tSumCredit = tSumCredit + tResult.Credit
-		Set tSumDebit = tSumDebit + tResult.Debit
+		Set tSumCredit = tSumCredit + ..StripNumber(tResult.Credit)
+		Set tSumDebit = tSumDebit + ..StripNumber(tResult.Debit)
 	}
 	Write !,"</tbody>"
  	Do ..OutputTableFoot(5,tSumCredit,tSumDebit)
@@ -143,6 +143,11 @@ ClassMethod OutputTableHead() As %Status
 	Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
 	Write !,"</thead>"
 	Quit $$$OK
+}
+
+ClassMethod StripNumber(pAmount As %String = "1,000.00") As %String
+{
+	Quit $Translate(pAmount,",")
 }
 
 Storage NewStorage1
