@@ -42,6 +42,14 @@ If ($Get(iEndDate) = ""),($Get(tYear) '= "") {
 	Set tDateH = $ZDATEH(tDate)
 	Set iEndDate = $ZDATE(tDateH - 1) 
 }
+If ($Data(%request.Data("iFilterAccount",1))) { Set iFilterAccount = %request.Data("iFilterAccount",1) }
+If ($Data(%request.Data("iFilterCategory",1))) { Set iFilterCategory = %request.Data("iFilterCategory",1) }
+If ($Data(%request.Data("iFilterCheck",1))) { Set iFilterCheck = %request.Data("iFilterCheck",1) }
+If ($Data(%request.Data("iFlterCredit",1))) { Set iFlterCredit = %request.Data("iFlterCredit",1) }
+If ($Data(%request.Data("iFilterDate",1))) { Set iFilterDate = %request.Data("iFilterDate",1) }
+If ($Data(%request.Data("iFlterDebit",1))) { Set iFlterDebit = %request.Data("iFlterDebit",1) }
+If ($Data(%request.Data("iFlterMemo",1))) { Set iFlterMemo = %request.Data("iFlterMemo",1) }
+If ($Data(%request.Data("iFilterMerchant",1))) { Set iFilterMerchant = %request.Data("iFilterMerchant",1) }
 Do:tDebug ##class(dc.iris.util).DebugTEST("iEndDate = "_$Get(iEndDate))
 Do:tDebug ##class(dc.iris.util).DebugTEST("iFilter = "_$Get(iFilter))
 Do:tDebug ##class(dc.iris.util).DebugTEST("iStartDate = "_$Get(iStartDate))
@@ -149,6 +157,8 @@ If ($Get(iEndDate) '= "") {
 	//Set pWhere = pWhere_" AND TranDate <= "_q_iEndDate_q
 	Set pWhere = pWhere_" AND iEndDate <= "_q_iEndDate_q
 }
+If ($Get(iFilterAccount) '= "") { Set pWhere = pWhere_" AND Account LIKE '"_iFilterAccount_"%'" }
+If ($Get(iFilterMerchant) '= "") { Set pWhere = pWhere_" AND Merchant LIKE '"_iFilterMerchant_"%'" }
 If (pWhere '= "") {
 	Set pWhere = $Extract(pWhere,6,*)
 }
