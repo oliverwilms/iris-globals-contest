@@ -130,6 +130,7 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
 		//Set tSC = ##class(Util).ExecuteQueryOneValue(tQuery,.tDisplay)
 		Set tDisplay = tResult.Category
 		Write !,"<td>",tDisplay,"</td>"
+		Write !,"<td>",tResult.Memo,"</td>"
 		Write !,"<td>",tResult.Debit,"</td>"
 		Write !,"<td>",tResult.Credit,"</td>"
 		Write !,"</tr>"
@@ -137,7 +138,7 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
 		Set tSumDebit = tSumDebit + ..StripNumber(tResult.Debit)
 	}
 	Write !,"</tbody>"
- 	Do ..OutputTableFoot(5,..AddCommas(tSumCredit),..AddCommas(tSumDebit))
+ 	Do ..OutputTableFoot(6,..AddCommas(tSumCredit),..AddCommas(tSumDebit))
 	Quit tSC
 }
 
@@ -157,7 +158,7 @@ ClassMethod OutputTableFoot(pColSpan As %String = "", pCredit As %String = "", p
 ClassMethod OutputTableHead() As %Status
 {
 	Write !,"<thead>"
-	Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Debit</th><th>Credit</th></tr>"
+	Write !,"<tr><th>Date</th><th>Account</th><th>Check</th><th>Merchant</th><th>Category</th><th>Memo</th><th>Debit</th><th>Credit</th></tr>"
 	Write !,"</thead>"
 	Quit $$$OK
 }
