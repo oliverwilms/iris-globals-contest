@@ -63,8 +63,28 @@ function goClickButton(id)
 	}
 	var iEndDate = document.getElementById("iEndDate").value;
 	var iFilter = document.getElementById("iFilter").value;
+	var iFilterAccount = document.getElementById("iFilterAccount").value;
+	var iFilterCategory = document.getElementById("iFilterCategory").value;
+	var iFilterCheck = document.getElementById("iFilterCheck").value;
+	var iFlterCredit = document.getElementById("iFlterCredit").value;
+	var iFilterDate = document.getElementById("iFilterDate").value;
+	var iFlterDebit = document.getElementById("iFlterDebit").value;
+	var iFlterMemo = document.getElementById("iFlterMemo").value;
+	var iFilterMerchant = document.getElementById("iFilterMerchant").value;
 	var iStartDate = document.getElementById("iStartDate").value;
-	document.location = "Transact.csp?&iFilter=" + iFilter + "&iEndDate=" + iEndDate + "&iStartDate=" + iStartDate;
+	var location = "Transact.csp?"
+	if (iEndDate != "") { location += "&iEndDate=" + iEndDate }
+	if (iFilter != "") { location += "&iFilter=" + iFilter }
+	if (iFilterAccount != "") { location += "&iFilterAccount=" + iFilterAccount }
+	if (iFilterCategory != "") { location += "&iFilterCategory=" + iFilterCategory }
+	if (iFilterCheck != "") { location += "&iFilterCheck=" + iFilterCheck }
+	if (iFlterCredit != "") { location += "&iFlterCredit=" + iFlterCredit }
+	if (iFilterDate != "") { location += "&iFilterDate=" + iFilterDate }
+	if (iFlterDebit != "") { location += "&iFlterDebit=" + iFlterDebit }
+	if (iFlterMemo != "") { location += "&iFlterMemo=" + iFlterMemo }
+	if (iFilterMerchant != "") { location += "&iFilterMerchant=" + iFilterMerchant }
+	if (iStartDate != "") { location += "&iStartDate=" + iStartDate }
+	document.location = location
 }
 </script>
 <style>
@@ -104,6 +124,16 @@ If $Data(^GLOBAL)=0 {
 </script>
 <table border=1>
 <caption>Transaction Table</caption>
+<tr>
+<td><input type="text" id="iFilterDate" size="10" value="#($Get(iFilterDate))#"></td>
+<td><input type="text" id="iFilterAccount" size="10" value="#($Get(iFilterAccount))#"></td>
+<td><input type="text" id="iFilterCheck" size="10" value="#($Get(iFilterCheck))#"></td>
+<td><input type="text" id="iFilterMerchant" size="" value="#($Get(iFilterMerchant))#"></td>
+<td><input type="text" id="iFilterCategory" size="10" value="#($Get(iFilterCategory))#"></td>
+<td><input type="text" id="iFlterMemo" size="" value="#($Get(iFlterMemo))#"></td>
+<td><input type="text" id="iFlterDebit" size="10" value="#($Get(iFlterDebit))#"></td>
+<td><input type="text" id="iFlterCredit" size="10" value="#($Get(iFlterCredit))#"></td>
+</tr>
 <script language="Cache" runat="Server">
 Set q = "'"
 Set tClassname = "dc.iris.transact"
