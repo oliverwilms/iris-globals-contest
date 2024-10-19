@@ -7,7 +7,7 @@ Property Account As %String;
 
 Property Category As %String;
 
-Property CheckNumber As %String;
+Property CheckNumber As %String(MAXLEN = 32766);
 
 Property Credit As %String;
 
