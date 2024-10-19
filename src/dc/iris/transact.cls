@@ -106,8 +106,11 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "windo
  	While tResult.%Next() {
 	 	If (tFilter '= "") {
 		 	Set tData = tResult.Category
-		 	Set tContinue = (tData '[ tFilter)
-		 	If tContinue { CONTINUE }
+			If (tFilter = 0) {
+				If (tData '= "") { CONTINUE }
+			} Else {
+		 		If (tData '[ tFilter) { CONTINUE }
+			}
 	 	}
 		 Set tRows = tRows + 1
 		 If (tRows > pMaxRows) {}
