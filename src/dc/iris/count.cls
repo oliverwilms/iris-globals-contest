@@ -267,13 +267,15 @@ ClassMethod OutputTableData(pWhere As %String = "", pTrClick As %String = "", pM
 
 ClassMethod OutputTableFoot(pColSpan As %String = "", pCount As %String = "", pCredit As %String = "", pDebit As %String = "") As %Status
 {
+	Set tCreditFN = $FN(pCredit,",",2)
+	Set tDebitFN = $FN(pDebit,",",2)
 	Set q = """"
 	Set qColSpan = q_pColSpan_q
 	Write !,"<tfoot>"
 	Write !,"<tr><td colspan=",qColSpan,">Sum</td>"
 	Write !,"<td>",pCount,"</td>"
-	Write !,"<td>",pDebit,"</td>"
-	Write !,"<td>",pCredit,"</td>"
+	Write !,"<td>",tDebitFN,"</td>"
+	Write !,"<td>",tCreditFN,"</td>"
 	Write !,"</tr>"
 	Write !,"</tfoot>"
 	Quit $$$OK
