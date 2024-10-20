@@ -3,6 +3,7 @@ Class dc.iris.count
 
 ClassMethod Count() As %Status
 {
+	Set ^TRANSLATE("Category","Donation") = "Donations"
 	Kill ^COUNT
 	Set tDebug = 1
 	Do:tDebug ##class(util).DebugTEST("dc.iris.count - Count")
