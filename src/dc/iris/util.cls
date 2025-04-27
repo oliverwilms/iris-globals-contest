@@ -36,6 +36,19 @@ ClassMethod GetStatusText(pStatus As %Status) As %String
 	Quit tReturn
 }
 
+ClassMethod DataToLineCSV(ByRef pData) As %String
+{
+	Set c = ","
+	Set q = """"
+	Set r = "'"
+	Set line = ""
+	For ii = 1:1:$Get(pData,0) {
+		Set x = $Replace($Get(pData(ii)),q,r)
+		Set line = line_c_q_x_q
+	}
+	Quit $Extract(line,2,*)
+}
+
 ClassMethod ExecuteQueryOneValue(pQuery As %String, ByRef pResult As %String) As %Status
 {
 	Do ..DebugTEST("Riches.Util - ExecuteQueryOneValue")
@@ -53,6 +66,62 @@ ClassMethod ExecuteQueryOneValue(pQuery As %String, ByRef pResult As %String) As
 	Set rs = ""
 	Do ..DebugTEST("pResult = "_pResult)
 	Quit tSC
+}
+
+ClassMethod ExportToCSV(pFile As %String = "") As %Status
+{
+	If ("" = $Get(pFile)) Set pFile = "dc_iris-transact.csv"
+	If ("" = $Get(pQuery)) Set pQuery = "SELECT ID, Account, Category, CheckNumber, Credit, Debit, Memo, Merchant, Status, SubCategory, TranDate, myId, zTranDate FROM dc_iris.transact"
+	Set statement = ##class(%SQL.Statement).%New(1)  ; 1 - ODBC mode
+	Set status = statement.%Prepare(pQuery)
+	If $$$ISERR(status) {write "%Prepare failed:" do $SYSTEM.Status.DisplayError(status) quit}
+	Set rset = statement.%Execute()
+	If (rset.%SQLCODE '= 0) {write "%Execute failed:", !, "SQLCODE ", rset.%SQLCODE, ": ", rset.%Message quit}
+	Set timeout = 1
+	Open pFile:("NRW"):timeout
+	Use pFile
+	Kill pData
+	Set pData($Increment(pData)) = "ID"
+	Set pData($Increment(pData)) = "Account"
+	Set pData($Increment(pData)) = "Category"
+	Set pData($Increment(pData)) = "CheckNumber"
+	Set pData($Increment(pData)) = "Credit"
+	Set pData($Increment(pData)) = "Debit"
+	Set pData($Increment(pData)) = "Memo"
+	Set pData($Increment(pData)) = "Merchant"
+	Set pData($Increment(pData)) = "Status"
+	Set pData($Increment(pData)) = "SubCategory"
+	Set pData($Increment(pData)) = "TranDate"
+	Set pData($Increment(pData)) = "zTranDate"
+	Set line = ..DataToLineCSV(.pData)
+	Write line,!
+	While rset.%Next()
+	{
+		//Write "Row count ",rset.%ROWCOUNT,!
+		//Write rset.ID
+		//Write ", Memo ",rset.Memo,!!
+		Kill pData
+		Set pData($Increment(pData)) = rset.ID
+		Set pData($Increment(pData)) = rset.Account
+		Set pData($Increment(pData)) = rset.Category
+		Set pData($Increment(pData)) = rset.CheckNumber
+		Set pData($Increment(pData)) = rset.Credit
+		Set pData($Increment(pData)) = rset.Debit
+		Set pData($Increment(pData)) = rset.Memo
+		Set pData($Increment(pData)) = rset.Merchant
+		Set pData($Increment(pData)) = rset.Status
+		Set pData($Increment(pData)) = rset.SubCategory
+		Set pData($Increment(pData)) = rset.TranDate
+		Set pData($Increment(pData)) = rset.zTranDate
+		Set line = ..DataToLineCSV(.pData)
+		Write line,!
+	}
+	Close pFile
+	Use 0
+	If (rset.%SQLCODE < 0) {write "%Next failed:", !, "SQLCODE ", rset.%SQLCODE, ": ", rset.%Message quit}
+	Write !,"End of data"
+	Write !,"Total row count=",rset.%ROWCOUNT
+	Quit $$$OK
 }
 
 ClassMethod GetDateValue(pValue As %String) As %Date
