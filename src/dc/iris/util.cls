@@ -44,6 +44,7 @@ ClassMethod DataToLineCSV(ByRef pData) As %String
 	Set line = ""
 	For ii = 1:1:$Get(pData,0) {
 		Set x = $Replace($Get(pData(ii)),q,r)
+		Set x = $Translate(x,$Char(13,10),";,")
 		Set line = line_c_q_x_q
 	}
 	Quit $Extract(line,2,*)
