@@ -3,7 +3,7 @@
   <Document name="iris-globals-contest.ZPM">
     <Module>
       <Name>iris-globals-contest</Name>
-      <Version>0.0.17</Version>
+      <Version>0.0.18</Version>
       <Description>The simplest template to run embedded python</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
