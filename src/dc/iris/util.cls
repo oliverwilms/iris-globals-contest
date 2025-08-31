@@ -125,6 +125,30 @@ ClassMethod ExportToCSV(pFile As %String = "") As %Status
 	Quit $$$OK
 }
 
+ClassMethod FixDateString(pValue As %String) As %String
+{
+	If ($Get(pValue) ? 1.N1"-"1.N1"-"1.N) {
+		Quit pValue
+	}
+	If ($Get(pValue) ? 1.N1"/"1.N1"/"1.N) {
+		Set tYear = $Piece(pValue,"/",3)
+		If (tYear > 99) {
+			Quit pValue
+		}
+		Set tYear = tYear + 2000
+		Set $Piece(pValue,"/",3) = tYear
+		Quit pValue
+		/* Allow Future Dates */
+		Set tDate = $ZDATEH(pValue,8)
+		If (tDate > $HOROLOG) {
+			Set tYear = tYear - 100
+			Set $Piece(pValue,"/",3) = tYear
+		}
+		Quit pValue
+	}
+	Quit $Get(pValue)
+}
+
 ClassMethod GetDateValue(pValue As %String) As %Date
 {
 	If ($Get(pValue) ? 1.N1"/"1.N1"/"1.N) {
