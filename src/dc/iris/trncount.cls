@@ -5,9 +5,9 @@ Index NewIndex1 On (TrnYear, TrnMonth, Category) [ IdKey, PrimaryKey, Unique ];
 
 Property Category As %String;
 
-Property Credit As %String;
+Property Credit As %Numeric;
 
-Property Debit As %String;
+Property Debit As %Numeric;
 
 Property TrnCount As %Integer;
 
