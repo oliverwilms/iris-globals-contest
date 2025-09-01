@@ -20,7 +20,7 @@ def gendiv(trnyear, trnmonth, filename="titanic.csv"):
     fig.update_traces(textfont_size=12,textangle=0,textposition="outside",cliponaxis=False)
     fig.update_layout(height=330)
     # fig.show()
-    div = plotly.offline.plot(fig, include_plotlyjs=False, output_type='div')
+    div = plot(fig, include_plotlyjs=False, output_type='div')
     # Print or save the div
     with open("plot.html", "w") as file:
         file.write(f"<html><body>{div}</body></html>")
@@ -28,5 +28,3 @@ def gendiv(trnyear, trnmonth, filename="titanic.csv"):
 
 # Create a simple plot
 # fig = go.Figure(data=[go.Bar(x=['A', 'B', 'C'], y=[10, 20, 30])])
-
-# div = plot(fig, output_type='div')
