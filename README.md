@@ -95,5 +95,12 @@ You see the above pictured page when you click on any table row of the summary C
 I wanted to see monthly totals for a series of months at a glance. Just open Count.csp from the menu:
 ![screenshot](https://github.com/oliverwilms/bilder/blob/main/iris-globals-contest_Count_csp.png)
 
-## Online Demo
-You can find online demo here - [demo](https://irisglobalscontest.demo.community.intersystems.com/csp/user/menu.csp)
+## Export global
+
+```
+USER>do $System.OBJ.Export("COUNT.GBL","/opt/irisapp/globalCOUNT.xml",,.errors)
+
+Exporting to XML started on 09/01/2025 14:34:37
+Exporting global: ^COUNT
+Export finished successfully.
+```
