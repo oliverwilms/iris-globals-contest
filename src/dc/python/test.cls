@@ -37,11 +37,11 @@ ClassMethod TitanicMeanAge() As %Status
 
 ClassMethod PlotlyDiv(pTrnYear = 0, pTrnMonth = 0) As %String
 {
-	Set sc = $$$OK
-	Set py = ##class(%SYS.Python).Import("plotdiv")
-	Set div = py.gendiv(pTrnYear,pTrnMonth)
+	Set importlib = ##class(%SYS.Python).Import("importlib")
+	Set plotdiv = ##class(%SYS.Python).Import("plotdiv")
+	Do importlib.reload(plotdiv)
+	Set div = plotdiv.gendiv(pTrnYear,pTrnMonth)
 	Return div
-	Return sc
 }
 
 }
