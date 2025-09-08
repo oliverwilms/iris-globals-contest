@@ -40,7 +40,8 @@ ClassMethod PlotlyDiv(pTrnYear = 0, pTrnMonth = 0) As %String
 	Set importlib = ##class(%SYS.Python).Import("importlib")
 	Set plotdiv = ##class(%SYS.Python).Import("plotdiv")
 	Do importlib.reload(plotdiv)
-	Set div = plotdiv.gendiv(pTrnYear,pTrnMonth)
+	Set dao = ##class(dc.iris.sqldata).byQuery()
+	Set div = plotdiv.gendiv(dao)
 	Return div
 }
 
