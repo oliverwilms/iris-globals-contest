@@ -39,7 +39,7 @@ fig.update_layout(
 fig.update_yaxes(automargin=True)
 
 # Generate the HTML div
-def gendiv(data, filename="titanic.csv"):
+def gendiv(trnyear, trnmonth, filename="titanic.csv"):
     query = "SELECT Top 10 Category, Credit, Debit, TrnCount FROM dc_iris.trncount where TrnYear=2025 and TrnMonth=8 Order By Debit DESC"
     print(query)
     className = 'dc.iris.sqldata'
