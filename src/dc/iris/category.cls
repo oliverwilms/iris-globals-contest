@@ -14,7 +14,7 @@ ClassMethod CreateOrUpdate(pType As %String, pName As %String) As %Status
 	Quit tSC
 }
 
-ClassMethod OutputTableExpense() As %String
+ClassMethod OutputTableExpense(pPeriod As %String, pTotal As %String) As %String
 {
 	/*
               <table cellpadding="0" cellspacing="0" width="100%" class="formtable"> 
@@ -26,7 +26,6 @@ ClassMethod OutputTableExpense() As %String
                 #(..htmlGetExpense("Savings","Monthly-Savings"))#
                 #(..htmlGetExpense("Leisure","Monthly-Leisure"))#
 
-                <tr class="formtabletotal"><th>Incremental Costs</th><th><span id="inc_costs" class="spandollar">&nbsp;</span></th><th><span id="inc_hours">&nbsp;</span></th></tr> 
               </table> 
 	*/
 	Set q = """"
@@ -46,12 +45,19 @@ ClassMethod OutputTableExpense() As %String
 		Set tSC = ..OutputTableRow("Expense","Leisure","Monthly-Leisure")
 		Quit
 	}
+	Set tClass = " class="_q_"formtabletotal"_q
+	Write !,"<tr"_tClass_">"
+	Write !,"<th>Total Expense</th><td>&nbsp;</td><td>&nbsp;</td>"
+	Set tClass = " class="_q_"spandollar"_q
+	Set tId = " id="_q_"tot_expense"_q
+	Set tSpan = "<span"_tId_tClass_">"
+	Write !,"<th>",tSpan,$Get(pTotal),"</span></th></tr>"
 	Write !,"</table>"
 	Quit ""
 	Quit $$$OK
 }
 
-ClassMethod OutputTableIncome() As %String
+ClassMethod OutputTableIncome(pPeriod As %String, pTotal As %String) As %String
 {
 	/*
               <table cellpadding="0" cellspacing="0" width="100%" class="formtable"> 
@@ -73,6 +79,13 @@ ClassMethod OutputTableIncome() As %String
 		Set tSC = ..OutputTableRow("Income","Freelance","Monthly-Freelance")
 		Quit
 	}
+	Set tClass = " class="_q_"formtabletotal"_q
+	Write !,"<tr"_tClass_">"
+	Write !,"<th>Total Income</th><td>&nbsp;</td><td>&nbsp;</td>"
+	Set tClass = " class="_q_"spandollar"_q
+	Set tId = " id="_q_"tot_income"_q
+	Set tSpan = "<span"_tId_tClass_">"
+	Write !,"<th>",tSpan,$Get(pTotal),"</span></th></tr>"
 	Write !,"</table>"
 	Quit ""
 	Quit $$$OK
