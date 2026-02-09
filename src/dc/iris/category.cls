@@ -14,6 +14,43 @@ ClassMethod CreateOrUpdate(pType As %String, pName As %String) As %Status
 	Quit tSC
 }
 
+ClassMethod OutputTableExpense() As %String
+{
+	/*
+              <table cellpadding="0" cellspacing="0" width="100%" class="formtable"> 
+                #(..htmlGetExpense("Giving","Monthly-Giving"))#
+                #(..htmlGetExpense("Housing","Monthly-Housing"))#
+                #(..htmlGetExpense("Food","Monthly-Food"))#
+                #(..htmlGetExpense("Clothing","Monthly-Clothing"))#
+                #(..htmlGetExpense("Automobile","Monthly-Automobile"))#
+                #(..htmlGetExpense("Savings","Monthly-Savings"))#
+                #(..htmlGetExpense("Leisure","Monthly-Leisure"))#
+
+                <tr class="formtabletotal"><th>Incremental Costs</th><th><span id="inc_costs" class="spandollar">&nbsp;</span></th><th><span id="inc_hours">&nbsp;</span></th></tr> 
+              </table> 
+	*/
+	Set q = """"
+	Set tCellPadding = " cellpadding="_q_"0"_q
+	Set tCellSpacing = " cellspacing="_q_"0"_q
+	Set tWidth = " width="_q_"100%"_q
+	Set tClass = " class="_q_"formtable"_q
+	Set tTable = "<table"_tCellPadding_tCellSpacing_tWidth_tClass_">"
+	Write !,tTable
+	For {
+		Set tSC = ..OutputTableRow("Expense","Giving","Monthly-Giving")
+		Set tSC = ..OutputTableRow("Expense","Housing","Monthly-Housing")
+		Set tSC = ..OutputTableRow("Expense","Food","Monthly-Food")
+		Set tSC = ..OutputTableRow("Expense","Clothing","Monthly-Clothing")
+		Set tSC = ..OutputTableRow("Expense","Automobile","Monthly-Automobile")
+		Set tSC = ..OutputTableRow("Expense","Savings","Monthly-Savings")
+		Set tSC = ..OutputTableRow("Expense","Leisure","Monthly-Leisure")
+		Quit
+	}
+	Write !,"</table>"
+	Quit ""
+	Quit $$$OK
+}
+
 ClassMethod OutputTableIncome() As %String
 {
 	/*
@@ -33,6 +70,7 @@ ClassMethod OutputTableIncome() As %String
 	Write !,tTable
 	For {
 		Set tSC = ..OutputTableRow("Income","Paycheck","Monthly-Paycheck")
+		Set tSC = ..OutputTableRow("Income","Freelance","Monthly-Freelance")
 		Quit
 	}
 	Write !,"</table>"
