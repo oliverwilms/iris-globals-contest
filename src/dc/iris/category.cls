@@ -5,6 +5,8 @@ Property IncomeOrExpense As %String;
 
 Property Name As %String;
 
+Property Type As %String(VALUELIST = ",Income,Expense");
+
 ClassMethod CreateOrUpdate(pType As %String, pName As %String) As %Status
 {
 	Set oCategory = ##class(dc.iris.category).%New()
