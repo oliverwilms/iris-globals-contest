@@ -3,8 +3,8 @@
   <Document name="iris-globals-contest.ZPM">
     <Module>
       <Name>iris-globals-contest</Name>
-      <Version>0.0.19</Version>
-      <Description>The simplest template to run embedded python</Description>
+      <Version>0.0.20</Version>
+      <Description>iris-globals-contest</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
       <Resource Name="dc.iris.PKG"/>
@@ -20,7 +20,6 @@
         Recurse="1"
         CookiePath="/irisapp"
       />
-      <FileCopy Name="python/" Target="${mgrdir}python/"/>
       <FileCopy Name="data/" Target="${mgrdir}data/"/>
       <FileCopy Name="csp/" Target="${cspdir}/irisapp/"/>
     </Module>
